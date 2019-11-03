@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'homepage.dart';
 import 'index.dart';
 import 'login_front.dart';
+import 'testeJansley.dart';
 
 void main() => runApp(MyApp());
 
@@ -15,7 +16,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primaryColor: Colors.red,
       ),
-      home: Index(),
+      home: Perguntas(),//mudar essa linha aqui para teste
     );
   }
 }
