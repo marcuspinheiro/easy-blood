@@ -3,6 +3,8 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'dart:async';
 
+import 'index_login.dart';
+
 class LoginFront extends StatefulWidget {
   @override
   _LoginFrontState createState() => _LoginFrontState();
@@ -33,6 +35,12 @@ class _LoginFrontState extends State<LoginFront> {
 
 if (r.statusCode == 200){
   print("Login Feito com sucesso");
+
+  Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context)  {
+                  return IndexLogin();
+              } ));
 }else{
   print("Login INVALIDO");
 }
