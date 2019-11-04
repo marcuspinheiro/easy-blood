@@ -36,11 +36,7 @@ class _LoginFrontState extends State<LoginFront> {
 if (r.statusCode == 200){
   print("Login Feito com sucesso");
 
-  Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context)  {
-                  return IndexLogin();
-              } ));
+  Navigator.of(context).pushNamed('/index_login', arguments: username);
 }else{
   print("Login INVALIDO");
 }

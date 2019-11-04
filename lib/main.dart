@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttergooglemapsapp/router_generator.dart';
 import 'homepage.dart';
 import 'index.dart';
 import 'login_front.dart';
@@ -16,7 +17,8 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primaryColor: Colors.red,
       ),
-      home: Perguntas(),//mudar essa linha aqui para teste
+      initialRoute: '/',//rota de de inicio '/' == Index() 
+      onGenerateRoute: RouteGenerator.generateRoute,
     );
   }
 }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'dart:async';
+import 'index.dart';
 import 'login_front.dart';
 
 class IndexLogin extends StatefulWidget {
@@ -36,18 +37,18 @@ class IndexLoginState extends State<IndexLogin> {
           padding: EdgeInsets.zero,
           children: <Widget>[
             DrawerHeader(
-              child: Text('Drawer Header'),
+              child: Text('Olá, '+user),
               decoration: BoxDecoration(
                 color: Colors.red,
               ),
             ),
             ListTile(
-              title: Text('Login'),
+              title: Text("Sair"),
               onTap: () {
                 // Ação para mudar para tela 1
                 Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => LoginFront()));
+              MaterialPageRoute(builder: (context) => Index()));
               },
             ),
             ListTile(
