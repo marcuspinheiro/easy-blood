@@ -62,6 +62,7 @@ if (r.statusCode == 200){
               decoration: InputDecoration(
                 hintText: 'Senha'
               ),
+              obscureText: true,
               controller: _userpassordController,
             ),
             Container(height: 20,),
