@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'index.dart';
 import 'login_front.dart';
+import 'lucas.dart';
 import 'main.dart';
 import 'index_login.dart';
 
@@ -19,6 +20,8 @@ class RouteGenerator{
             user: args,
           )
         );
+      case '/cadastro_usuario':
+        return MaterialPageRoute(builder: (_) => CadstroUser());
       default:
         return _errorRoute();
                     }
