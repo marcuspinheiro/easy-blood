@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'homepage.dart';
 import 'index.dart';
 import 'login_front.dart';
-import 'testeJansley.dart';
+import 'perguntasRespostas.dart';
 
 void main() => runApp(MyApp());
 

@@ -11,7 +11,7 @@ class _PerguntasState extends State<Perguntas> {
   Widget build(BuildContext context) {
     return new Scaffold(
       appBar: new AppBar(title: new Text("Perguntas e Respostas")),
-      body: Center(child: new Text("Tela única")),
+      body: new ListView(),
       drawer: new Drawer(
         child: new ListView(
           padding: EdgeInsets.zero,
