@@ -2,10 +2,9 @@ import 'package:flutter/material.dart';
 import 'home_map.dart';
 import 'index.dart';
 import 'list.dart';
-import 'login_front.dart';
 import 'lucas.dart';
-import 'main.dart';
 import 'index_login.dart';
+import 'regras_doacao.dart';
 
 
 class RouteGenerator{
@@ -30,6 +29,8 @@ class RouteGenerator{
         return MaterialPageRoute(builder: (_) => CadstroUser());
       case '/home_maps':
         return MaterialPageRoute(builder: (_) => HomeMaps());
+      case '/regra_doacao':
+        return MaterialPageRoute(builder: (_) => RegraDoacao());
       default:
         return _errorRoute();
                     }

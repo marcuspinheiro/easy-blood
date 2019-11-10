@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primaryColor: Colors.red,
       ),
-      initialRoute: '/home_maps',//rota de de inicio '/' == Index() 
+      initialRoute: '/',//rota de de inicio '/' == Index() 
       onGenerateRoute: RouteGenerator.generateRoute,
     );
   }
