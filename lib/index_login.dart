@@ -4,9 +4,10 @@ import 'package:http/http.dart' as http;
 import 'dart:async';
 import 'index.dart';
 import 'login_front.dart';
+import 'class_user.dart';
 
 class IndexLogin extends StatefulWidget {
-  final String user;
+  final User user;
 
   const IndexLogin({Key key, this.user}) : super(key: key);
 
@@ -17,9 +18,11 @@ class IndexLogin extends StatefulWidget {
 
 class IndexLoginState extends State<IndexLogin> {
   
-  final String user;
+  final User user;
 
   IndexLoginState(this.user);
+
+  
   
   getLogin (){
     
@@ -37,7 +40,7 @@ class IndexLoginState extends State<IndexLogin> {
           padding: EdgeInsets.zero,
           children: <Widget>[
             DrawerHeader(
-              child: Text('Olá, '+user),
+              child: Text('Olá, '+user.name),
               decoration: BoxDecoration(
                 color: Colors.red,
               ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'home_map.dart';
 import 'index.dart';
 import 'list.dart';
 import 'login_front.dart';
@@ -27,6 +28,8 @@ class RouteGenerator{
         return MaterialPageRoute(builder: (_) =>ListTileExample());
       case '/cadastro_user':
         return MaterialPageRoute(builder: (_) => CadstroUser());
+      case '/home_maps':
+        return MaterialPageRoute(builder: (_) => HomeMaps());
       default:
         return _errorRoute();
                     }
