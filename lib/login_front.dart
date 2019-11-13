@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'dart:async';
+import 'class_user.dart';
 
 import 'index_login.dart';
 
@@ -36,7 +37,14 @@ class _LoginFrontState extends State<LoginFront> {
 if (r.statusCode == 200){
   print("Login Feito com sucesso");
 
-  Navigator.of(context).pushNamed('/index_login', arguments: username);
+  var jsonData = json.decode(r.body);
+
+  User user = User(jsonData['name'], jsonData['email'], jsonData['bloodType'], jsonData['cpf'], jsonData['sex'], 
+  jsonData['phone'], jsonData['elegibleDonor'], jsonData['adress{strees}']);
+
+  print(user.name);
+
+  Navigator.of(context).pushNamed('/index_login', arguments: user);
 }else{
   print("Login INVALIDO");
 }
@@ -62,6 +70,7 @@ if (r.statusCode == 200){
               decoration: InputDecoration(
                 hintText: 'Senha'
               ),
+              obscureText: true,
               controller: _userpassordController,
             ),
             Container(height: 20,),

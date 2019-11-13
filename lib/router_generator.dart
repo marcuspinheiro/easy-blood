@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'Mpas_bloodCenter.dart';
+import 'home_map.dart';
 import 'index.dart';
-import 'login_front.dart';
+import 'list.dart';
 import 'lucas.dart';
-import 'main.dart';
 import 'index_login.dart';
+import 'regras_doacao.dart';
 
 
 class RouteGenerator{
@@ -22,6 +24,16 @@ class RouteGenerator{
         );
       case '/cadastro_usuario':
         return MaterialPageRoute(builder: (_) => CadstroUser());
+      case '/listTileExample':
+        return MaterialPageRoute(builder: (_) =>ListTileExample());
+      case '/cadastro_user':
+        return MaterialPageRoute(builder: (_) => CadstroUser());
+      case '/home_maps':
+        return MaterialPageRoute(builder: (_) => HomeMaps());
+      case '/regra_doacao':
+        return MaterialPageRoute(builder: (_) => RegraDoacao());
+      case '/mapblood':
+        return MaterialPageRoute(builder: (_) => MapBloodCenter());
       default:
         return _errorRoute();
                     }

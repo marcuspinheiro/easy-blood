@@ -2,19 +2,14 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import './HemoCentro.dart';
 
-class HomePage extends StatefulWidget {
+class HomeMaps extends StatefulWidget {
   @override
-  HomePageState createState() => HomePageState();
+  HomeMapsState createState() => HomeMapsState();
 }
 
-class HomePageState extends State<HomePage> {
-  Completer<GoogleMapController> _controller = Completer();
-
- HemoCentro hemoTeste = new HemoCentro("HemoMarcus", -22.8287076,-47.064613, "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRXeA2UQQGEtecYZkIKN9B_OpZNsGftAZ0Cqtsolxw9eqtx9VLD", "21");
-
-int i = 0;
+class HomeMapsState extends State<HomeMaps> {
+ Completer<GoogleMapController> _controller = Completer();
 
   @override
   void initState() {
@@ -55,7 +50,7 @@ int i = 0;
     return Align(
       alignment: Alignment.topLeft,
       child: IconButton(
-            icon: Icon(FontAwesomeIcons.searchMinus,color:Colors.red),
+            icon: Icon(FontAwesomeIcons.searchMinus,color:Color(0xff6200ee)),
             onPressed: () {
               zoomVal--;
              _minus( zoomVal);
@@ -67,7 +62,7 @@ int i = 0;
     return Align(
       alignment: Alignment.topRight,
       child: IconButton(
-            icon: Icon(FontAwesomeIcons.searchPlus,color:Colors.red),
+            icon: Icon(FontAwesomeIcons.searchPlus,color:Color(0xff6200ee)),
             onPressed: () {
               zoomVal++;
               _plus(zoomVal);
@@ -77,14 +72,14 @@ int i = 0;
 
  Future<void> _minus(double zoomVal) async {
     final GoogleMapController controller = await _controller.future;
-    controller.animateCamera(CameraUpdate.newCameraPosition(CameraPosition(target: LatLng(-22.8287076,-47.064613), zoom: zoomVal)));
+    controller.animateCamera(CameraUpdate.newCameraPosition(CameraPosition(target: LatLng(-22.8269535, -47.0663047), zoom: zoomVal)));
   }
   Future<void> _plus(double zoomVal) async {
     final GoogleMapController controller = await _controller.future;
-    controller.animateCamera(CameraUpdate.newCameraPosition(CameraPosition(target: LatLng(-22.8287076,-47.064613), zoom: zoomVal)));
+    controller.animateCamera(CameraUpdate.newCameraPosition(CameraPosition(target: LatLng(-22.8269535, -47.0663047), zoom: zoomVal)));
   }
 
-  ///AQUI LISTA
+  
   Widget _buildContainer() {
     return Align(
       alignment: Alignment.bottomLeft,
@@ -93,14 +88,27 @@ int i = 0;
         height: 150.0,
         child: ListView(
           scrollDirection: Axis.horizontal,
-          children: 
-          <Widget>[
+          children: <Widget>[
             SizedBox(width: 10.0),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: _boxes(
-                  hemoTeste.url,
-                  hemoTeste.latitude, hemoTeste.longitude,hemoTeste.nome),
+                  "https://lh5.googleusercontent.com/p/AF1QipO3VPL9m-b355xWeg4MXmOQTauFAEkavSluTtJU=w225-h160-k-no",
+                  -22.8269535, -47.0663047,"Gramercy Tavern"),
+            ),
+            SizedBox(width: 10.0),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: _boxes(
+                  "https://lh5.googleusercontent.com/p/AF1QipMKRN-1zTYMUVPrH-CcKzfTo6Nai7wdL7D8PMkt=w340-h160-k-no",
+                  -22.8083781, -47.0675188,"Le Bernardin"),
+            ),
+            SizedBox(width: 10.0),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: _boxes(
+                  "https://images.unsplash.com/photo-1504940892017-d23b9053d5d4?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60",
+                  -22.8129285, -47.074965,"Blue Hill"),
             ),
           ],
         ),
@@ -119,7 +127,7 @@ int i = 0;
                     color: Colors.white,
                     elevation: 14.0,
                     borderRadius: BorderRadius.circular(24.0),
-                    shadowColor: Colors.red,
+                    shadowColor: Color(0x802196F3),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
@@ -156,7 +164,7 @@ int i = 0;
           child: Container(
               child: Text(restaurantName,
             style: TextStyle(
-                color: Colors.red,
+                color: Color(0xff6200ee),
                 fontSize: 24.0,
                 fontWeight: FontWeight.bold),
           )),
@@ -247,12 +255,15 @@ int i = 0;
       width: MediaQuery.of(context).size.width,
       child: GoogleMap(
         mapType: MapType.normal,
-        initialCameraPosition:  CameraPosition(target: LatLng(-22.8287076, -47.0624243), zoom: 12),
+        initialCameraPosition:  CameraPosition(target: LatLng(-22.8269535, -47.0663047), zoom: 12), //ponto incial do map
         onMapCreated: (GoogleMapController controller) {
           _controller.complete(controller);
         },
         markers: {
-          newyork1Marker
+          hemocentro1,
+          hemocentro2,
+          hemocentro3,
+      
         },
       ),
     );
@@ -263,64 +274,31 @@ int i = 0;
     controller.animateCamera(CameraUpdate.newCameraPosition(CameraPosition(target: LatLng(lat, long), zoom: 15,tilt: 50.0,
       bearing: 45.0,)));
   }
-
-
 }
 
-
-  Marker newyork1Marker = new Marker(
-  markerId: MarkerId('newyork1'),
-  position: LatLng(-22.8287076, -47.0624243),
-  infoWindow: InfoWindow(title: 'Hemocentro Campinas'),
+Marker hemocentro1 = Marker(
+  markerId: MarkerId('hemocentro1'),
+  position: LatLng(-22.8269535, -47.0663047),
+  infoWindow: InfoWindow(title: 'Gramercy Tavern'),
   icon: BitmapDescriptor.defaultMarkerWithHue(
     BitmapDescriptor.hueRed,
   ),
 );
-/*
- Marker gramercyMarker = Marker(
-  markerId: MarkerId('gramercy'),
-  position: LatLng(40.738380, -73.988426),
-  infoWindow: InfoWindow(title: 'Gramercy Tavern'),
-  icon: BitmapDescriptor.defaultMarkerWithHue(
-    BitmapDescriptor.hueViolet,
-  ),
-);
 
-
-
-Marker bernardinMarker = Marker(
-  markerId: MarkerId('bernardin'),
-  position: LatLng(40.761421, -73.981667),
+Marker hemocentro2 = Marker(
+  markerId: MarkerId('hemocentro2'),
+  position: LatLng(-22.8083781, -47.0675188),
   infoWindow: InfoWindow(title: 'Le Bernardin'),
   icon: BitmapDescriptor.defaultMarkerWithHue(
-    BitmapDescriptor.hueViolet,
+    BitmapDescriptor.hueRed,
   ),
 );
-Marker blueMarker = Marker(
-  markerId: MarkerId('bluehill'),
-  position: LatLng(40.732128, -73.999619),
+Marker hemocentro3 = Marker(
+  markerId: MarkerId('hemocentro3'),
+  position: LatLng(-22.8129285, -47.074965),
   infoWindow: InfoWindow(title: 'Blue Hill'),
   icon: BitmapDescriptor.defaultMarkerWithHue(
-    BitmapDescriptor.hueViolet,
-  ),
-);*/
-
-//New York Marker
-
-
-/*Marker newyork2Marker = Marker(
-  markerId: MarkerId('newyork2'),
-  position: LatLng(40.729640, -73.983510),
-  infoWindow: InfoWindow(title: 'Tree Bistro'),
-  icon: BitmapDescriptor.defaultMarkerWithHue(
-    BitmapDescriptor.hueViolet,
+    BitmapDescriptor.hueRed,
   ),
 );
-Marker newyork3Marker = Marker(
-  markerId: MarkerId('newyork3'),
-  position: LatLng(40.719109, -74.000183),
-  infoWindow: InfoWindow(title: 'Le Coucou'),
-  icon: BitmapDescriptor.defaultMarkerWithHue(
-    BitmapDescriptor.hueViolet,
-  ),
-);*/
+
