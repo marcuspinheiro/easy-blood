@@ -15,7 +15,7 @@ class _RegraDoacaoState extends State<RegraDoacao> {
 
   Future<List<Regras>> _getRegras() async {
 
-    var data = await http.get("http://www.json-generator.com/api/json/get/bPFmMZWIjm?indent=2");
+    var data = await http.get("http://www.json-generator.com/api/json/get/bUGkouscbS?indent=2");
     
     var jsonData = json.decode(data.body);
 

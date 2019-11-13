@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'Mpas_bloodCenter.dart';
 import 'home_map.dart';
 import 'index.dart';
 import 'list.dart';
@@ -31,6 +32,8 @@ class RouteGenerator{
         return MaterialPageRoute(builder: (_) => HomeMaps());
       case '/regra_doacao':
         return MaterialPageRoute(builder: (_) => RegraDoacao());
+      case '/mapblood':
+        return MaterialPageRoute(builder: (_) => MapBloodCenter());
       default:
         return _errorRoute();
                     }
