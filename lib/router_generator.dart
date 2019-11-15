@@ -6,6 +6,7 @@ import 'list.dart';
 import 'lucas.dart';
 import 'index_login.dart';
 import 'regras_doacao.dart';
+import 'register_user.dart';
 
 
 class RouteGenerator{
@@ -23,7 +24,7 @@ class RouteGenerator{
           )
         );
       case '/CadastroUsuario':
-        return MaterialPageRoute(builder: (_) => CadstroUser());
+        return MaterialPageRoute(builder: (_) => CadastroUsuario());
       case '/listTileExample':
         return MaterialPageRoute(builder: (_) =>ListTileExample());
       case '/cadastro_user':

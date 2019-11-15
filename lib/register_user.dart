@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
@@ -10,9 +11,13 @@ class CadastroUsuario extends StatefulWidget {
 
 class _CadastroUsuarioState extends State<CadastroUsuario> {
 
+ final GlobalKey<FormFieldState<String>> _passwordFieldKey =
+      new GlobalKey<FormFieldState<String>>();
+
   GlobalKey<FormState> _key = new GlobalKey();
   bool _validate = false;
   String nome, email, phone, cpf, data, bloodType, sex, senha, confsenha;
+  int _radioVal=0;
 
   @override
   Widget build(BuildContext context) {
@@ -37,77 +42,166 @@ class _CadastroUsuarioState extends State<CadastroUsuario> {
     return new Column(
       children: <Widget>[
         new TextFormField(
-          decoration: new InputDecoration(hintText: 'Nome Completo'),
+          textCapitalization: TextCapitalization.words,
+          decoration: new InputDecoration(
+            border: UnderlineInputBorder(),
+            filled: true,
+            icon: Icon(Icons.person),
+            hintText: 'Digite seu nome',
+            labelText: 'Nome Completo',
+          ),
           maxLength: 40,
-          validator: _validarNome,
           onSaved: (String val) {
-            nome = val;
+            this.nome = val;
           },
+          validator: _validarNome,
         ),
         new TextFormField(
-          decoration: new InputDecoration(hintText: 'CPF'),
+          decoration: const InputDecoration(
+              border: UnderlineInputBorder(),
+              filled: true,
+              icon: Icon(Icons.assignment),
+              hintText: 'Digite seu CPF',
+              labelText: 'CPF',
+            ),
           maxLength: 14,
           validator: _validarCPF,
           onSaved: (String val) {
             cpf = val;
           },
+          inputFormatters: <TextInputFormatter>[
+              WhitelistingTextInputFormatter.digitsOnly,
+            ],
         ),
         new TextFormField(
-            decoration: new InputDecoration(hintText: 'Data de Nascimento'),
+            decoration: const InputDecoration(
+              border: UnderlineInputBorder(),
+              filled: true,
+              icon: Icon(Icons.date_range),
+              hintText: 'Digite data de nascimento',
+              labelText: 'Data',
+            ),
             keyboardType: TextInputType.datetime,
             maxLength: 10,
-            validator: _validarData,
             onSaved: (String val) {
               data = val;
-            }),
+            },
+            inputFormatters: <TextInputFormatter>[
+              WhitelistingTextInputFormatter.digitsOnly,
+            ],            
+            validator: _validarData,
+            ),
         new TextFormField(
-            decoration: new InputDecoration(hintText: 'Celular'),
+            decoration: const InputDecoration(
+              border: UnderlineInputBorder(),
+              filled: true,
+              icon: Icon(Icons.phone),
+              hintText: 'Digite seu número',
+              labelText: 'Celular',
+              prefixText: '+55',
+            ),
             keyboardType: TextInputType.phone,
             maxLength: 10,
             validator: _validarCelular,
             onSaved: (String val) {
-              phone = val;
-            }),
+              this.phone = val;
+            },
+            inputFormatters: <TextInputFormatter>[
+              WhitelistingTextInputFormatter.digitsOnly,
+            ],
+          ),
         new TextFormField(
-            decoration: new InputDecoration(hintText: 'Email'),
+            decoration: const InputDecoration(
+              border: UnderlineInputBorder(),
+              filled: true,
+              icon: Icon(Icons.email),
+              hintText: 'Digite seu E-mail',
+              labelText: 'E-mail',
+            ),
             keyboardType: TextInputType.emailAddress,
             maxLength: 40,
             validator: _validarEmail,
             onSaved: (String val) {
-              email = val;
+              this.email = val;
             }),
         new TextFormField(
-          decoration: new InputDecoration(hintText: 'Tipo Sanguíneo'),
+          textCapitalization: TextCapitalization.words,
+          decoration: new InputDecoration(
+            border: UnderlineInputBorder(),
+            filled: true,
+            icon: Icon(Icons.tag_faces),
+            hintText: 'Digite seu tipo sanguíneo',
+            labelText: 'Tipo Sanguíneo',
+          ),
           maxLength: 3,
           onSaved: (String val) {
-            bloodType = val;
+            this.bloodType = val;
           },
         ),
+        new Text('Sexo'),
+          new Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              new Radio(
+                value: 0,
+                groupValue: this._radioVal,
+                onChanged: (int value){
+                  setState(() => this._radioVal = value);
+                },
+              ),
+              new Text(
+                'Masculino'
+              ),
+              new Radio(
+                value: 1,
+                groupValue: this._radioVal,
+                onChanged: (int value){
+                  setState(() => this._radioVal = value);
+                },              ),
+              new Text(
+                'Feminino',
+              ),
+              new Radio(
+                value: 2,
+                groupValue: this._radioVal,
+                onChanged: (int value){
+                  setState(() => this._radioVal = value);
+                },
+              ),
+            ],
+          ),
         new TextFormField(
           decoration: new InputDecoration(hintText: 'Sexo'),
           maxLength: 1,
           onSaved: (String val) {
-            sex = val;
+            this.sex = val;
           },
         ),
-        new TextFormField(
-          decoration: new InputDecoration(hintText: 'Senha'),
-          maxLength: 12,
-          obscureText: true,
-          validator: _validarSenha,
-          onSaved: (String val) {
-            senha = val;
-          },
-        ),
-        new TextFormField(
-          decoration: new InputDecoration(hintText: 'Confirmar Senha'),
-          maxLength: 12,
-          obscureText: true,
-          validator: _validarConfSenha,
-          onSaved: (String val) {
-            confsenha = val;
-          },
-        ),
+        PasswordField(
+            fieldKey: _passwordFieldKey,
+            helperText: 'Digite uma senha',
+            labelText: 'Senha',
+            onFieldSubmitted: (String val) {
+              setState(() {
+                this.senha = val;
+              });
+            },
+          ),
+         new TextFormField(
+            enabled: this.senha != null && this.senha.isNotEmpty,
+            decoration: const InputDecoration(
+              border: UnderlineInputBorder(),
+              filled: true,
+              labelText: 'Digite a senha novamente',
+            ),
+            onFieldSubmitted: (String val) {
+              setState(() {
+                this.confsenha = val;
+              });
+            },
+            maxLength: 8,
+            obscureText: true,
+          ),
         new SizedBox(height: 15.0),
         new RaisedButton(
           child: new Text('Enviar'),
@@ -221,9 +315,67 @@ if (r.statusCode == 200){
 
     } else {
       // erro de validação
+
+      
       setState(() {
         _validate = true;
       });
     }
+  }
+}
+
+class PasswordField extends StatefulWidget {
+  const PasswordField({
+    this.fieldKey,
+    this.hintText,
+    this.labelText,
+    this.helperText,
+    this.onSaved,
+    this.validator,
+    this.onFieldSubmitted,
+  });
+
+  final Key fieldKey;
+  final String hintText;
+  final String labelText;
+  final String helperText;
+  final FormFieldSetter<String> onSaved;
+  final FormFieldValidator<String> validator;
+  final ValueChanged<String> onFieldSubmitted;
+
+  @override
+  _PasswordFieldState createState() => new _PasswordFieldState();
+}
+
+class _PasswordFieldState extends State<PasswordField> {
+  bool _obscureText = true;
+
+  @override
+  Widget build(BuildContext context) {
+    return new TextFormField(
+      key: widget.fieldKey,
+      obscureText: _obscureText,
+      maxLength: 8,
+      onSaved: widget.onSaved,
+      validator: widget.validator,
+      onFieldSubmitted: widget.onFieldSubmitted,
+      decoration: new InputDecoration(
+        border: const UnderlineInputBorder(),
+        filled: true,
+        icon: Icon(Icons.vpn_key),
+        hintText: widget.hintText,
+        labelText: widget.labelText,
+        helperText: widget.helperText,
+        suffixIcon: new GestureDetector(
+          onTap: () {
+            setState(() {
+              _obscureText = !_obscureText;
+            });
+          },
+          child:
+              new Icon(_obscureText ? Icons.visibility : Icons.visibility_off),
+        ),
+      ),
+    );
   }
 }

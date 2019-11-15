@@ -46,7 +46,7 @@ class IndexState extends State<Index> {
               title: Text('Criar usuário'),
               onTap: () {
                 // Ação para mudar para tela 2
-                Navigator.pop(context);
+               Navigator.of(context).pushNamed('/CadastroUsuario');
               },
             ),
              ListTile(
