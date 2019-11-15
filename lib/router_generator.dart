@@ -22,7 +22,7 @@ class RouteGenerator{
             user: args,
           )
         );
-      case '/cadastro_usuario':
+      case '/CadastroUsuario':
         return MaterialPageRoute(builder: (_) => CadstroUser());
       case '/listTileExample':
         return MaterialPageRoute(builder: (_) =>ListTileExample());
