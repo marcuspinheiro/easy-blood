@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'dart:convert';
-import 'package:http/http.dart' as http;
-import 'dart:async';
 import 'login_front.dart';
 
 class Index extends StatefulWidget {
@@ -64,6 +61,13 @@ class IndexState extends State<Index> {
               onTap: () {
                 // Ação para mudar para tela 2
                 
+              },
+              ),
+             ListTile(
+              title: Text('Mapa Centro Coletores'),
+              onTap: () {
+                // Ação para mudar para tela 2
+               Navigator.of(context).pushNamed('/mapblood');
               },
             ),
         ]),

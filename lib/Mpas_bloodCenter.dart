@@ -29,12 +29,12 @@ Future<List<HemoCentro>> _getBloddCenter() async {
     List<HemoCentro> hemoCentros = [];
 
     for (var i in jsonData){
-      HemoCentro hemoCentro = HemoCentro(i["name"]);
+      HemoCentro hemoCentro = HemoCentro(i["name"], i["imageURL"]);
 
       hemoCentros.add(hemoCentro);
       
       print(hemoCentro.name);
-
+      print(hemoCentro.urlImage);
     }
     print ("Quantidade de Hemocentros");
     print(hemoCentros.length);
@@ -73,9 +73,8 @@ Future<List<HemoCentro>> _getBloddCenter() async {
                          mapController: _mapController 
                        )
                   
-                     ,]      
+                     ,]  
             );
-                   
               }
                )
                );
@@ -117,7 +116,7 @@ class CenterList extends StatelessWidget{
                         subtitle: Text(centro[index].name),
                         leading: Container(
                           child: ClipRRect(
-                            child: Image.network("http://s2.glbimg.com/uzJEBGQmEXQm-rlYCv_QlgbJXvI=/620x465/s.glbimg.com/jo/g1/f/original/2016/02/18/hemocentro03.jpg", fit: BoxFit.cover,),
+                            child: Image.network(centro[index].urlImage, fit: BoxFit.cover,),
                                    borderRadius: const BorderRadius.all(Radius.circular(2)),
                           ),
                           width: 60,

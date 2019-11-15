@@ -1,14 +1,19 @@
-import 'package:google_maps_flutter/google_maps_flutter.dart';
-
 class  HemoCentro {
 
 String name;
+String street;
+String urlImage;
+String adress;
+double lat;
+double long;
+var blood;
 
 
 
-HemoCentro(String name){
+HemoCentro(String name, String urlImage){
 
   this.name = name;
+  this.urlImage = urlImage;
 
 
 }
