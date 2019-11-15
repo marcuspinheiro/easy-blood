@@ -7,6 +7,7 @@ import 'dart:async';
 
 
 
+
 import 'HemoCentro.dart';
 
 class MapBloodCenter extends StatefulWidget {
@@ -15,6 +16,8 @@ class MapBloodCenter extends StatefulWidget {
 }
 
 class _MapBloodCenterState extends State<MapBloodCenter> {
+
+final Completer<GoogleMapController> _mapController = Completer();
 
 
 Future<List<HemoCentro>> _getBloddCenter() async {
@@ -43,7 +46,7 @@ Future<List<HemoCentro>> _getBloddCenter() async {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: new Text("Cadastro Usuário"),
+        title: new Text("Centro Coletores"),
       ),
             body: FutureBuilder(
               future: _getBloddCenter(),
@@ -56,52 +59,21 @@ Future<List<HemoCentro>> _getBloddCenter() async {
                   return Center(child: Text('Loading...'));
                 }
 
-      
-               return Column(
-                 children: [
-                   Flexible(
-                     flex: 2,
-                     child: CenterMap(
+               return Stack(
+                 children: <Widget> [ 
+                    CenterMap(
                        centros : snapshot.data,
                        initialPosition : const LatLng(-22.8269535, -47.0663047),
-                     ),
-                     
-                     /*GoogleMap(
-                       initialCameraPosition: CameraPosition(
-                          target: LatLng(-22.8269535, -47.0663047),
-                          zoom:12
-                       ),
-                       
-                      
-              
-                     )*/
-
-
-                     
-  /*                    CenterMap(
-                       documents : snapshot.data,
-                       initialPosition : const LatLang(377.7786, -122.4375),
-*/
-                     
-                     
+                       mapController: _mapController,
                      ),
                    
-                     Flexible(
-                       flex: 3,
-                       child:  CenterList (centro: snapshot.data)
-                             /*ListView.builder(
-                                itemCount: snapshot.data.length,
-                                itemBuilder: (BuildContext context, int index){
-                                 //final center = centerCollector[index];
-                                return ListTile(
-                                  title: Text(snapshot.data[index].name),
-                                  subtitle: Text(snapshot.data[index].name),
-
-                               );
-                                },
-                                  )*/
-                     )
-                     ],
+                   
+                     CenterList (
+                         centro: snapshot.data,
+                         mapController: _mapController 
+                       )
+                  
+                     ,]      
             );
                    
               }
@@ -112,44 +84,68 @@ Future<List<HemoCentro>> _getBloddCenter() async {
 }
 
 
-/*
-return
-                     ListView.builder(
-                  itemCount: snapshot.data.length,
-                  itemBuilder: (BuildContext context, int index){
-                    //final center = centerCollector[index];
-                    return ListTile(
-                      title: Text(snapshot.data[index].name),
-                      subtitle: Text(snapshot.data[index].name),
-
-                    );
-                  },
-                );*/
-
-
-
-
 class CenterList extends StatelessWidget{
   const CenterList ({
   Key key,
     @required this.centro,
+    @required this.mapController,
   }) :super (key : key);
 
   final List <HemoCentro> centro;
+  final Completer<GoogleMapController> mapController;
   
   
     Widget build(BuildContext context) {
-     return ListView.builder(
-                    itemCount: centro.length,
-                    itemBuilder: (BuildContext context, int index){
-                      //final center = centerCollector[index];
-                      return ListTile(
+     return Align(
+      alignment: Alignment.topLeft,
+      child: Padding(
+        padding: const EdgeInsets.only(top: 10),
+        child: SizedBox(
+          height: 90,
+          child: ListView.builder(
+            scrollDirection: Axis.horizontal,
+            itemCount: centro.length,
+            itemBuilder: (BuildContext context, int index){
+              return SizedBox(
+                width: 340,
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 8),
+                  child: Card(
+                    child: Center(
+                      child: ListTile(
                         title: Text(centro[index].name),
                         subtitle: Text(centro[index].name),
-  
-                      );
-                    },
-                  );
+                        leading: Container(
+                          child: ClipRRect(
+                            child: Image.network("http://s2.glbimg.com/uzJEBGQmEXQm-rlYCv_QlgbJXvI=/620x465/s.glbimg.com/jo/g1/f/original/2016/02/18/hemocentro03.jpg", fit: BoxFit.cover,),
+                                   borderRadius: const BorderRadius.all(Radius.circular(2)),
+                          ),
+                          width: 60,
+                          height: 60,
+                        ),
+                        onTap: () async{
+                          final controller =  await mapController.future;
+                          await controller.animateCamera(
+                            CameraUpdate.newCameraPosition(
+                              CameraPosition(
+                                target: LatLng(
+                                  -22.8269535, -47.0663047
+                                ),
+                                zoom: 16
+                              )
+                            )
+                            );
+                        },
+                      ) ,
+                    ),
+                  )
+                ),
+              );
+            },
+          ),
+        ),
+      ),
+     );
   }
   }
   
@@ -159,11 +155,12 @@ const CenterMap({
   Key key,
   @required this.centros,
   @required this.initialPosition,
+  @required this.mapController,
 }) : super(key:key);
 
 final List<HemoCentro> centros;
 final LatLng initialPosition;
-
+final Completer<GoogleMapController> mapController;
 
 Widget build (BuildContext context){
   return GoogleMap(
@@ -185,6 +182,9 @@ Widget build (BuildContext context){
         ),
       ))
       .toSet(),
+      onMapCreated: (mapController){
+        this.mapController.complete(mapController);
+      },
   );
 }
 
