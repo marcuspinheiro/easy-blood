@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primaryColor: Colors.red,
       ),
-      initialRoute: '/mapblood',//rota de de inicio '/' == Index() 
+      initialRoute: '/perguntas_respostas',//rota de de inicio '/' == Index() 
       onGenerateRoute: RouteGenerator.generateRoute,
     );
   }
