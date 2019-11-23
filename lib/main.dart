@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fluttergooglemapsapp/router_generator.dart';
 
-
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {

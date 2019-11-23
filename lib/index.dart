@@ -70,6 +70,20 @@ class IndexState extends State<Index> {
                Navigator.of(context).pushNamed('/mapblood');
               },
             ),
+             ListTile(
+              title: Text('Regras Doação'),
+              onTap: () {
+                // Ação para mudar para tela 2
+               Navigator.of(context).pushNamed('/regra_doacao');
+              },
+            ),
+            ListTile(
+              title: Text('Sobre'),
+              onTap: () {
+                // Ação para mudar para tela 2
+                
+              },
+            ),
         ]),
       ),
     );
