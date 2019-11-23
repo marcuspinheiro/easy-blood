@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttergooglemapsapp/splashScreen.dart';
 import 'Mpas_bloodCenter.dart';
 import 'home_map.dart';
 import 'index.dart';
@@ -8,25 +9,22 @@ import 'index_login.dart';
 import 'regras_doacao.dart';
 import 'register_user.dart';
 
-
-class RouteGenerator{
-  static Route<dynamic> generateRoute(RouteSettings settings){
-
+class RouteGenerator {
+  static Route<dynamic> generateRoute(RouteSettings settings) {
     final args = settings.arguments;
 
-    switch(settings.name){
+    switch (settings.name) {
       case '/':
         return MaterialPageRoute(builder: (_) => Index());
       case '/index_login':
         return MaterialPageRoute(
-          builder: (_) => IndexLogin(
-            user: args,
-          )
-        );
+            builder: (_) => IndexLogin(
+                  user: args,
+                ));
       case '/CadastroUsuario':
         return MaterialPageRoute(builder: (_) => CadastroUsuario());
       case '/listTileExample':
-        return MaterialPageRoute(builder: (_) =>ListTileExample());
+        return MaterialPageRoute(builder: (_) => ListTileExample());
       case '/cadastro_user':
         return MaterialPageRoute(builder: (_) => CadstroUser());
       case '/home_maps':
@@ -35,25 +33,23 @@ class RouteGenerator{
         return MaterialPageRoute(builder: (_) => RegraDoacao());
       case '/mapblood':
         return MaterialPageRoute(builder: (_) => MapBloodCenter());
+      case '/splashScreen':
+        return MaterialPageRoute(builder: (_) => SplashScreen());
       default:
         return _errorRoute();
-                    }
-                  }
-                
-        
-       static Route<dynamic> _errorRoute(){
-         return MaterialPageRoute(builder: (_){
-           return Scaffold(
-             appBar: AppBar(
-               title: Text("ERROR"),
-             ),
-             body: Center(
-               child: Text("ERROR"),
-             ),
-           );
-         }      
-         );
-       }
+    }
+  }
+
+  static Route<dynamic> _errorRoute() {
+    return MaterialPageRoute(builder: (_) {
+      return Scaffold(
+        appBar: AppBar(
+          title: Text("ERROR"),
+        ),
+        body: Center(
+          child: Text("ERROR"),
+        ),
+      );
+    });
+  }
 }
-        
-        

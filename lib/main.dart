@@ -12,9 +12,9 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Flutter GoogleMaps Demo',
       theme: ThemeData(
-        primaryColor: Colors.red,
+        primaryColor: Colors.red
       ),
-      initialRoute: '/',//rota de de inicio '/' == Index() 
+      initialRoute: '/splashScreen',//rota de de inicio '/' == Index() 
       onGenerateRoute: RouteGenerator.generateRoute,
     );
   }
