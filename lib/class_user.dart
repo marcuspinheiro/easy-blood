@@ -11,7 +11,7 @@ class User{
 
 
 
-User (String name, String email, String bloodType, String cpf, String sex, String phone, bool elegibleDonor, String adress){
+User (String name, String email, String bloodType, String cpf, String sex, String phone, bool elegibleDonor){
 
   this.name = name;
   this.email = email;
@@ -20,8 +20,24 @@ User (String name, String email, String bloodType, String cpf, String sex, Strin
   this.sex = sex;
   this.phone = phone;
   this.elegibleDonor = elegibleDonor;
-  this.adress = adress;
 
+}
+
+}
+
+
+
+
+class Adress  {
+
+String street;
+String state;
+String number;
+String lat;
+String long;
+
+Adress (String state){
+  this.state = state;
 }
 
 }

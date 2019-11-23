@@ -26,10 +26,21 @@ Future<List<HemoCentro>> _getBloddCenter() async {
     
     var jsonData = json.decode(data.body);
 
+    print(data.body);
+
     List<HemoCentro> hemoCentros = [];
 
     for (var i in jsonData){
-      HemoCentro hemoCentro = HemoCentro(i["name"], i["imageURL"]);
+
+      var latLong = i['address'];
+
+      double lat = latLong['latitude'];
+      double long = latLong['longitude'];
+
+      print(lat);
+      print(long);
+
+      HemoCentro hemoCentro = HemoCentro(i["name"], i["imageURL"], lat, long);
 
       hemoCentros.add(hemoCentro);
       
@@ -128,7 +139,7 @@ class CenterList extends StatelessWidget{
                             CameraUpdate.newCameraPosition(
                               CameraPosition(
                                 target: LatLng(
-                                  -22.8269535, -47.0663047
+                                  centro[index].lat, centro[index].long
                                 ),
                                 zoom: 16
                               )
@@ -173,7 +184,7 @@ Widget build (BuildContext context){
         markerId: MarkerId(centro.name),
         icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRed,),
         position: LatLng(
-          -22.8269535, -47.0663047
+          centro.lat, centro.long//-22.8269535, -47.0663047
         ),
         infoWindow: InfoWindow(
           title: 'titulo',

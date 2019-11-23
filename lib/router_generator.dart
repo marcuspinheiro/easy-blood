@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'Mpas_bloodCenter.dart';
+import 'Mapas_bloodCenter.dart';
 import 'home_map.dart';
 import 'index.dart';
 import 'list.dart';
+import 'login_front.dart';
 import 'lucas.dart';
 import 'index_login.dart';
 import 'regras_doacao.dart';
@@ -35,6 +36,8 @@ class RouteGenerator{
         return MaterialPageRoute(builder: (_) => RegraDoacao());
       case '/mapblood':
         return MaterialPageRoute(builder: (_) => MapBloodCenter());
+      case '/login':
+        return MaterialPageRoute(builder: (_) => LoginFront());
       default:
         return _errorRoute();
                     }

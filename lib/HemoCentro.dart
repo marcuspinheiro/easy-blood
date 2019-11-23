@@ -10,11 +10,12 @@ var blood;
 
 
 
-HemoCentro(String name, String urlImage){
+HemoCentro(String name, String urlImage, double lat, double long){
 
   this.name = name;
   this.urlImage = urlImage;
-
+  this.lat = lat;
+  this.long = long;
 
 }
 

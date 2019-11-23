@@ -205,7 +205,7 @@ class _CadastroUsuarioState extends State<CadastroUsuario> {
         new SizedBox(height: 15.0),
         new RaisedButton(
           child: new Text('Enviar'),
-          onPressed: _sendForm,
+          onPressed: sendForm,
         )
       ],
     );
@@ -283,8 +283,7 @@ class _CadastroUsuarioState extends State<CadastroUsuario> {
     }
   }
 
-  _sendForm() async{
-    if (_key.currentState.validate()) {
+  sendForm() async{
       // Sem erros na validação
       _key.currentState.save();
       print("Nome $nome");
@@ -297,30 +296,38 @@ class _CadastroUsuarioState extends State<CadastroUsuario> {
       print("Senha $senha");
       print("Senha confirmada $confsenha");
 
-      print("========================TESTE CADASTRO ==========================");
+      print("========================TESTE CADASTRO INICIO ==========================");
 
 
-  http.Response r = await http.post('https://easybloodteste.herokuapp.com/public/users');
+  const url = 'https://easybloodteste.herokuapp.com/public/users';
+
+
+    http.Response r = await http.post(url, body: json.encode({
+      'username': nome,
+      'name': nome,
+      'email': email,
+      'phone': phone,
+      'cpf': cpf,
+      'bithDate': data,
+      'bloodType': bloodType,
+      'password': senha
+    }),);
+
+
+  //http.Response r = await http.post('https://easybloodteste.herokuapp.com/public/users');
   
   print(r.statusCode);
   print(r.body);
 
-if (r.statusCode == 200){
+if (r.statusCode == 200 || r.statusCode == 201){
   print("Cadastro feito com sucesso");
+   Navigator.of(context).pushNamed('/login');
 
-  Navigator.of(context).pushNamed('/login_front');
 }else{
   print("Erro ao cadastrar");
 }
 
-    } else {
-      // erro de validação
-
-      
-      setState(() {
-        _validate = true;
-      });
-    }
+    
   }
 }
 
