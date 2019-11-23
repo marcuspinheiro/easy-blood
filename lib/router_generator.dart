@@ -5,6 +5,7 @@ import 'index.dart';
 import 'list.dart';
 import 'lucas.dart';
 import 'index_login.dart';
+import 'perguntas_respostas.dart';
 import 'regras_doacao.dart';
 import 'register_user.dart';
 
@@ -33,6 +34,8 @@ class RouteGenerator{
         return MaterialPageRoute(builder: (_) => HomeMaps());
       case '/regra_doacao':
         return MaterialPageRoute(builder: (_) => RegraDoacao());
+      case '/perguntas_respostas':
+        return MaterialPageRoute(builder: (_) => Perguntas());
       case '/mapblood':
         return MaterialPageRoute(builder: (_) => MapBloodCenter());
       default:

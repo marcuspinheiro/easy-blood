@@ -12,79 +12,85 @@ class LoginFront extends StatefulWidget {
 }
 
 class _LoginFrontState extends State<LoginFront> {
- 
- bool _isLoading = false;
+  bool _isLoading = false;
   TextEditingController _usernameController = new TextEditingController();
- TextEditingController _userpassordController = new TextEditingController();
+  TextEditingController _userpassordController = new TextEditingController();
 
-
-  getLogin() async{
-
+  getLogin() async {
     print("========================TESTE LOGIN ==========================");
 
     String username = _usernameController.text;
     String password = _userpassordController.text;
- String basicAuth =
-      'Basic ' + base64Encode(utf8.encode('$username:$password'));
-  print(basicAuth);
+    String basicAuth =
+        'Basic ' + base64Encode(utf8.encode('$username:$password'));
+    print(basicAuth);
 
-  http.Response r = await http.post('https://easybloodteste.herokuapp.com/users/login',
-      headers: <String, String>{'authorization': basicAuth});
- 
-  print(r.statusCode);
-  print(r.body);
+    http.Response r = await http.post(
+        'https://easybloodteste.herokuapp.com/users/login',
+        headers: <String, String>{'authorization': basicAuth});
 
-if (r.statusCode == 200){
-  print("Login Feito com sucesso");
+    print(r.statusCode);
+    print(r.body);
 
-  var jsonData = json.decode(r.body);
+    if (r.statusCode == 200) {
+      print("Login Feito com sucesso");
 
-  User user = User(jsonData['name'], jsonData['email'], jsonData['bloodType'], jsonData['cpf'], jsonData['sex'], 
-  jsonData['phone'], jsonData['elegibleDonor'], jsonData['adress{strees}']);
+      var jsonData = json.decode(r.body);
 
-  print(user.name);
+      User user = User(
+          jsonData['name'],
+          jsonData['email'],
+          jsonData['bloodType'],
+          jsonData['cpf'],
+          jsonData['sex'],
+          jsonData['phone'],
+          jsonData['elegibleDonor'],
+          jsonData['adress{strees}']);
 
-  Navigator.of(context).pushNamed('/index_login', arguments: user);
-}else{
-  print("Login INVALIDO");
-}
+      print(user.name);
 
+      Navigator.of(context).pushNamed('/index_login', arguments: user);
+    } else {
+      print("Login INVALIDO");
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-       return Scaffold(
-      appBar: AppBar(title: Text('Login'),),
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Login'),
+      ),
       body: Padding(
         padding: const EdgeInsets.all(32.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             TextField(
-              decoration: InputDecoration(
-                hintText: 'Usuário'
-              ),
+              decoration: InputDecoration(hintText: 'Usuário'),
               controller: _usernameController,
             ),
-             TextField(
-              decoration: InputDecoration(
-                hintText: 'Senha'
-              ),
+            TextField(
+              decoration: InputDecoration(hintText: 'Senha'),
               obscureText: true,
               controller: _userpassordController,
             ),
-            Container(height: 20,),
-            _isLoading ? CircularProgressIndicator() : SizedBox(
-              height: 40,
-              width: double.infinity,
-              child: RaisedButton(
-                color: Colors.red,
-                child: Text(
-                  'Entrar',
-                  style: TextStyle(color: Colors.white),
-                ),
-                onPressed: getLogin, 
-                /*() async {
+            Container(
+              height: 20,
+            ),
+            _isLoading
+                ? CircularProgressIndicator()
+                : SizedBox(
+                    height: 40,
+                    width: double.infinity,
+                    child: RaisedButton(
+                      color: Colors.red,
+                      child: Text(
+                        'Entrar',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                      onPressed: getLogin,
+                      /*() async {
                   setState(() {
                     _isLoading = true;
                   });
@@ -141,8 +147,8 @@ if (r.statusCode == 200){
                     }
                   }*/
                 }*/
-              ),
-            )
+                    ),
+                  )
           ],
         ),
       ),
