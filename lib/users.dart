@@ -19,32 +19,35 @@ class Users with ChangeNotifier {
   }
 
   void addUser(User user) {
-    const url = 'https://flutter-update.firebaseio.com/Users.json';
+    const url = 'https://easybloodteste.herokuapp.com/public/users';
     http.post(url, body: json.encode({
-      'nome': user.nome,
-      'email': user.email,
-      'celular': user.phone,
-      'cpf': user.cpf,
-      'data': user.data,
+      'bithDate': user.address,
       'bloodType': user.bloodType,
-      'sexo': user.sex,
-      'senha': user.senha,
-      'confsenha': user.confsenha,
-      'Doador': user.elegibleDonor,
-      'Endereço': user.adress
+      'cpf': user.cpf,
+      'eligibleDonor': user.eligibleDonor,
+      'email': user.email,
+      'id': user.id,
+      'name': user.name,
+      'password': user.password,
+      'passwordConfirm': user.passwordConfirm,
+      'phone': user.phone,
+      'roles': user.roles,
+      'sex': user.sex,
+      'username': user.username
     }),);
     final newUser = User(
-      nome: user.nome,
-      email: user.email,
-      phone: user.phone,
-      cpf: user.cpf,
-      data: user.data,
+      name: user.name,
       bloodType: user.bloodType,
+      cpf: user.cpf,
+      eligibleDonor: user.eligibleDonor,
+      email: user.email,
+      id: user.id,
+      password: user.password,
+      passwordConfirm: user.passwordConfirm,
+      phone: user.phone,
+      roles: user.roles,
       sex: user.sex,
-      senha: user.senha,
-      confsenha: user.confsenha,
-      elegibleDonor: user.elegibleDonor,
-      adress: user.adress, id: DateTime.now().toString(),
+      username: user.username
     );
     _items.add(newUser);
     // _items.insert(0, newUser); // at the start of the list

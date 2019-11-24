@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-
+import 'user.dart';
 
 class CadastroUsuario extends StatefulWidget {
   @override
@@ -15,9 +15,8 @@ class _CadastroUsuarioState extends State<CadastroUsuario> {
       new GlobalKey<FormFieldState<String>>();
 
   GlobalKey<FormState> _key = new GlobalKey();
-  bool _validate = false;
-  String nome, email, phone, cpf, data, bloodType, sex, senha, confsenha;
-  int _radioVal=0;
+  bool _validate = false, elegibleDonor = true;
+  String name, email, phone, cpf, bloodType, sex, password, passwordConfirm, bithDate, state;  
 
   @override
   Widget build(BuildContext context) {
@@ -47,14 +46,14 @@ class _CadastroUsuarioState extends State<CadastroUsuario> {
             border: UnderlineInputBorder(),
             filled: true,
             icon: Icon(Icons.person),
-            hintText: 'Digite seu nome',
-            labelText: 'Nome Completo',
+            hintText: 'Digite seu name',
+            labelText: 'name Completo',
           ),
           maxLength: 40,
           onSaved: (String val) {
-            this.nome = val;
+            this.name = val;
           },
-          validator: _validarNome,
+          validator: _validarname,
         ),
         new TextFormField(
           decoration: const InputDecoration(
@@ -84,7 +83,7 @@ class _CadastroUsuarioState extends State<CadastroUsuario> {
             keyboardType: TextInputType.datetime,
             maxLength: 10,
             onSaved: (String val) {
-              data = val;
+              bithDate = val;
             },
             inputFormatters: <TextInputFormatter>[
               WhitelistingTextInputFormatter.digitsOnly,
@@ -109,7 +108,7 @@ class _CadastroUsuarioState extends State<CadastroUsuario> {
             inputFormatters: <TextInputFormatter>[
               WhitelistingTextInputFormatter.digitsOnly,
             ],
-          ),
+          ), 
         new TextFormField(
             decoration: const InputDecoration(
               border: UnderlineInputBorder(),
@@ -138,65 +137,55 @@ class _CadastroUsuarioState extends State<CadastroUsuario> {
             this.bloodType = val;
           },
         ),
-        new Text('Sexo'),
-          new Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              new Radio(
-                value: 0,
-                groupValue: this._radioVal,
-                onChanged: (int value){
-                  setState(() => this._radioVal = value);
-                },
-              ),
-              new Text(
-                'Masculino'
-              ),
-              new Radio(
-                value: 1,
-                groupValue: this._radioVal,
-                onChanged: (int value){
-                  setState(() => this._radioVal = value);
-                },              ),
-              new Text(
-                'Feminino',
-              ),
-              new Radio(
-                value: 2,
-                groupValue: this._radioVal,
-                onChanged: (int value){
-                  setState(() => this._radioVal = value);
-                },
-              ),
-            ],
-          ),
         new TextFormField(
-          decoration: new InputDecoration(hintText: 'Sexo'),
+          textCapitalization: TextCapitalization.words,
+          decoration: new InputDecoration(
+            border: UnderlineInputBorder(),
+            filled: true,
+            icon: Icon(Icons.perm_identity),
+            hintText: 'Digite seu Sexo (M ou F)',
+            labelText: 'Sexo',
+          ),
           maxLength: 1,
           onSaved: (String val) {
             this.sex = val;
           },
         ),
+       new TextFormField(
+          textCapitalization: TextCapitalization.words,
+          decoration: new InputDecoration(
+            border: UnderlineInputBorder(),
+            filled: true,
+            icon: Icon(Icons.person_pin_circle),
+            hintText: 'Digite seu Estado',
+            labelText: 'Estado',
+          ),
+          maxLength: 2,
+          onSaved: (String val) {
+            this.state = val;
+          },
+        ), 
         PasswordField(
             fieldKey: _passwordFieldKey,
-            helperText: 'Digite uma senha',
-            labelText: 'Senha',
+            helperText: 'Digite uma password',
+            labelText: 'password',
             onFieldSubmitted: (String val) {
               setState(() {
-                this.senha = val;
+                this.password = val;
               });
             },
           ),
          new TextFormField(
-            enabled: this.senha != null && this.senha.isNotEmpty,
+            enabled: password != null && password.isNotEmpty,
             decoration: const InputDecoration(
               border: UnderlineInputBorder(),
+              icon: Icon(Icons.vpn_key),
               filled: true,
-              labelText: 'Digite a senha novamente',
+              labelText: 'Digite a password novamente',
             ),
             onFieldSubmitted: (String val) {
               setState(() {
-                this.confsenha = val;
+                passwordConfirm = val;
               });
             },
             maxLength: 8,
@@ -204,20 +193,20 @@ class _CadastroUsuarioState extends State<CadastroUsuario> {
           ),
         new SizedBox(height: 15.0),
         new RaisedButton(
-          child: new Text('Enviar'),
-          onPressed: sendForm,
+          child: new Text('Cadastrar'),
+          onPressed: _sendForm,
         )
       ],
     );
   }
 
-  String _validarNome(String value) {
+  String _validarname(String value) {
     String patttern = r'(^[a-zA-Z ]*$)';
     RegExp regExp = new RegExp(patttern);
     if (value.length == 0) {
-      return "Informe o nome";
+      return "Informe o name";
     } else if (!regExp.hasMatch(value)) {
-      return "O nome deve conter caracteres de a-z ou A-Z";
+      return "O name deve conter caracteres de a-z ou A-Z";
     }
     return null;
   }
@@ -233,7 +222,7 @@ class _CadastroUsuarioState extends State<CadastroUsuario> {
     return null;
   }
 
-  String _validarData(String value) {
+   String _validarData(String value) {
     String patttern = r'(^([0-2][0-9]|(3)[0-1])(\/)(((0)[0-9])|((1)[0-2]))(\/)\d{4}$)';
     RegExp regExp = new RegExp(patttern);
     if (value.length == 0) {
@@ -242,7 +231,7 @@ class _CadastroUsuarioState extends State<CadastroUsuario> {
       return "A data de nascimento deve conter apenas números";
     }
     return null;
-  }
+  } 
 
   String _validarCelular(String value) {
     String patttern = r'(^[0-9]*$)';
@@ -257,16 +246,16 @@ class _CadastroUsuarioState extends State<CadastroUsuario> {
     return null;
   }
 
-  String _validarSenha(String value) {
+  String _validarpassword(String value) {
     if(value.length != 10){
-      return "A senha deve no mínimo 6 dígitos";
+      return "A password deve no mínimo 6 dígitos";
     }
     return null;
   }
 
-    String _validarConfSenha(String value) {
-    if(value != senha){
-      return "A senha ser igual a senha anterior";
+    String _validarpasswordConfirm(String value) {
+    if(value != password){
+      return "A password ser igual a password anterior";
     }
     return null;
   }
@@ -283,51 +272,48 @@ class _CadastroUsuarioState extends State<CadastroUsuario> {
     }
   }
 
-  sendForm() async{
-      // Sem erros na validação
-      _key.currentState.save();
-      print("Nome $nome");
-      print("Celular $phone");
-      print("Email $email");
-      print("CPF $cpf");
-      print("Data de Nascimento $data");
-      print("Tipo Sanguineo $bloodType");
-      print("Sexo $sex");
-      print("Senha $senha");
-      print("Senha confirmada $confsenha");
+  _sendForm() async{
+    // Sem erros na validação
+    _key.currentState.save();
+    print("name $name");
+    print("Celular $phone");
+    print("Email $email");
+    print("CPF $cpf");
+    print("Data de Nascimento $bithDate");
+    print("Tipo Sanguineo $bloodType");
+    print("Sexo $sex");
+    print("password $password");
+    print("password confirmada $passwordConfirm");
 
-      print("========================TESTE CADASTRO INICIO ==========================");
-
+    print("========================TESTE CADASTRO ==========================");
 
   const url = 'https://easybloodteste.herokuapp.com/public/users';
-
-
-    http.Response r = await http.post(url, body: json.encode({
-      'username': nome,
-      'name': nome,
-      'email': email,
-      'phone': phone,
+  http.Response r = await http.post(url, headers: {"Content-Type": "application/json"}, body: json.encode({
       'cpf': cpf,
-      'bithDate': data,
+      'email': email,
+      'name': name,
+      'password': password,
+      'bithDate': bithDate,
+      'passwordConfirm': passwordConfirm,
+      'username': name,
       'bloodType': bloodType,
-      'password': senha
+      'phone': phone,
+      'elegibleDonor': elegibleDonor,
+      'address':{ 'state': state},
+      'sex': sex
     }),);
 
-
-  //http.Response r = await http.post('https://easybloodteste.herokuapp.com/public/users');
-  
   print(r.statusCode);
   print(r.body);
 
-if (r.statusCode == 200 || r.statusCode == 201){
-  print("Cadastro feito com sucesso");
-   Navigator.of(context).pushNamed('/login');
+  if (r.statusCode == 201){
+    print("Login Feito com sucesso");
 
-}else{
-  print("Erro ao cadastrar");
-}
+    Navigator.of(context).pushNamed('/');
+  }else{
+    print("Erro ao realizar Cadastro");
+  }
 
-    
   }
 }
 

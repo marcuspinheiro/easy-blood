@@ -50,7 +50,7 @@ class SobreSistemaState extends State<SobreSistema> {
                   title: itemRow(Icons.supervised_user_circle, 'Criar Cadastro', '',Colors.white),  
                   onTap: () {
                       // Ação para mudar para tela 2
-                    Navigator.of(context).pushNamed('/mapblood');
+                    Navigator.of(context).pushNamed('/CadastroUsuario');
                     },),
                 ListTile (
                   title: itemRow(Icons.help, 'Dúvidas e Respostas', '', Colors.white),  
