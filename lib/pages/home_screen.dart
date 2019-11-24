@@ -57,28 +57,28 @@ class HomeScreenState extends State<HomeScreen> {
               crossAxisAlignment: CrossAxisAlignment.end,
               children: <Widget>[
                 FlatButton(
+                  color: Colors.white,
+                  shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0)),
                   child: Text(lastPage ? "BACK" : "PREVIOUS",
                       style: TextStyle(
                           color: Colors.black,
                           fontWeight: FontWeight.bold,
                           fontSize: 16.0)),
-                  onPressed: () => lastPage
-                      ? widget.skipPage(context)
-                      : controller.previousPage(
-                          duration: Duration(milliseconds: 300),
-                          curve: Curves.easeIn),
+                  onPressed: () => controller.previousPage(
+                      duration: Duration(milliseconds: 300),
+                      curve: Curves.easeIn),
                 ),
                 FlatButton(
-                  child: Text(lastPage ? "GOT IT" : "NEXT",
+                  color: Colors.white,
+                  shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0)),
+                  child: Text(lastPage ? "" : "NEXT",
                       style: TextStyle(
                           color: Colors.black,
                           fontWeight: FontWeight.bold,
                           fontSize: 16.0)),
-                  onPressed: () => lastPage
-                      ? widget.skipPage(context)
-                      : controller.nextPage(
-                          duration: Duration(milliseconds: 300),
-                          curve: Curves.easeIn),
+                  onPressed: () => controller.nextPage(
+                      duration: Duration(milliseconds: 300),
+                      curve: Curves.easeIn),
                 ),
               ],
             ),
