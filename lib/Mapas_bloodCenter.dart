@@ -184,10 +184,10 @@ Widget build (BuildContext context){
         markerId: MarkerId(centro.name),
         icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRed,),
         position: LatLng(
-          centro.lat, centro.long//-22.8269535, -47.0663047
+          centro.lat, centro.long
         ),
         infoWindow: InfoWindow(
-          title: 'titulo',
+          title: centro.name,
           snippet: 'teste',
         ),
       ))
