@@ -1,31 +1,17 @@
 import 'package:flutter/material.dart';
-import 'login_front.dart';
-import 'class_user.dart';
 
-class IndexLogin extends StatefulWidget {
-  final User user;
 
-  const IndexLogin({Key key, this.user}) : super(key: key);
+class SobreSistema extends StatefulWidget {
+ 
 
 
   @override
-  IndexLoginState createState() => IndexLoginState(user);
+  SobreSistemaState createState() => SobreSistemaState();
 }
 
-class IndexLoginState extends State<IndexLogin> {
+class SobreSistemaState extends State<SobreSistema> {
   
-  final User user;
 
-  IndexLoginState(this.user);
-
-  
-  
-  getLogin (){
-    
-    Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => LoginFront()));
-  }
   
     Widget build(BuildContext context) {
     return Scaffold(
@@ -46,7 +32,7 @@ class IndexLoginState extends State<IndexLogin> {
                 Container(
                   width: 200.0,
                   child: Text(
-                    'Olá, ' + user.name,
+                    'Bem Vindo' ,
                     style: TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.bold,
@@ -61,17 +47,11 @@ class IndexLoginState extends State<IndexLogin> {
                     Navigator.of(context).pushNamed('/mapblood');
                     },),//marcus
                 ListTile (
-                  title: itemRow(Icons.location_on, 'Mapa por Localidade', '',Colors.white),  
+                  title: itemRow(Icons.supervised_user_circle, 'Criar Cadastro', '',Colors.white),  
                   onTap: () {
                       // Ação para mudar para tela 2
-                    Navigator.of(context).pushNamed('/mapblood');
+                    Navigator.of(context).pushNamed('/CadastroUsuario');
                     },),
-                 ListTile (
-                  title: itemRow(Icons.invert_colors, 'Mapa por tipo de Sangue', '',Colors.white),  
-                  onTap: () {
-                      // Ação para mudar para tela 2
-                    Navigator.of(context).pushNamed('/mapblood');
-                    },),//marcus
                 ListTile (
                   title: itemRow(Icons.help, 'Dúvidas e Respostas', '', Colors.white),  
                   onTap: () {
@@ -95,7 +75,7 @@ class IndexLoginState extends State<IndexLogin> {
           Container(
             height: 80.0,
             child: ListTile (
-                  title:itemRow(Icons.input, 'Sair','', Colors.white),
+                  title:itemRow(Icons.input, 'Voltar','', Colors.white),
                   onTap: () {
                             // Ação para mudar para tela 2
                           Navigator.of(context).pushNamed('/');

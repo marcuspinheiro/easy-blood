@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'dart:async';
 import 'class_user.dart';
 
-import 'index_login.dart';
+
 
 class LoginFront extends StatefulWidget {
   @override
@@ -38,11 +37,17 @@ if (r.statusCode == 200){
   print("Login Feito com sucesso");
 
   var jsonData = json.decode(r.body);
+  var jsonEndereco = jsonData['address'];
+  var state = jsonEndereco['state'];
+
+  print(jsonEndereco);
+
 
   User user = User(jsonData['name'], jsonData['email'], jsonData['bloodType'], jsonData['cpf'], jsonData['sex'], 
-  jsonData['phone'], jsonData['elegibleDonor'], jsonData['adress{strees}']);
+  jsonData['phone'], jsonData['elegibleDonor']);
 
-  print(user.name);
+  print('Nome do usuário: '+user.name);
+  print(state);
 
   Navigator.of(context).pushNamed('/index_login', arguments: user);
 }else{

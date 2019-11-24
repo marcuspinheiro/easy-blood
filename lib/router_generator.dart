@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
-import 'Mpas_bloodCenter.dart';
+import 'package:fluttergooglemapsapp/sobreSistema.dart';
+import 'Mapas_bloodCenter.dart';
 import 'home_map.dart';
 import 'index.dart';
 import 'list.dart';
+import 'login_front.dart';
 import 'lucas.dart';
 import 'index_login.dart';
+import 'main_new_2.dart';
 import 'regras_doacao.dart';
 import 'register_user.dart';
 
@@ -35,6 +38,12 @@ class RouteGenerator{
         return MaterialPageRoute(builder: (_) => RegraDoacao());
       case '/mapblood':
         return MaterialPageRoute(builder: (_) => MapBloodCenter());
+      case '/login':
+        return MaterialPageRoute(builder: (_) => LoginFront());
+      case '/index2':
+      return MaterialPageRoute(builder: (_) => Index2());
+      case '/sobreSistema':
+      return MaterialPageRoute(builder: (_) => SobreSistema());
       default:
         return _errorRoute();
                     }

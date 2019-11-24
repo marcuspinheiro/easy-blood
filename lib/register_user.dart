@@ -15,9 +15,8 @@ class _CadastroUsuarioState extends State<CadastroUsuario> {
       new GlobalKey<FormFieldState<String>>();
 
   GlobalKey<FormState> _key = new GlobalKey();
-  bool _validate = false;
-  String name, email, phone, cpf, data, bloodType, sex, password, passwordConfirm;
-  int _radioVal=0;
+  bool _validate = false, elegibleDonor = true;
+  String name, email, phone, cpf, bloodType, sex, password, passwordConfirm, bithDate, state;  
 
   @override
   Widget build(BuildContext context) {
@@ -73,7 +72,7 @@ class _CadastroUsuarioState extends State<CadastroUsuario> {
               WhitelistingTextInputFormatter.digitsOnly,
             ],
         ),
-        /* new TextFormField(
+        new TextFormField(
             decoration: const InputDecoration(
               border: UnderlineInputBorder(),
               filled: true,
@@ -84,14 +83,14 @@ class _CadastroUsuarioState extends State<CadastroUsuario> {
             keyboardType: TextInputType.datetime,
             maxLength: 10,
             onSaved: (String val) {
-              data = val;
+              bithDate = val;
             },
             inputFormatters: <TextInputFormatter>[
               WhitelistingTextInputFormatter.digitsOnly,
             ],            
             validator: _validarData,
-            ), */
-        /* new TextFormField(
+            ),
+        new TextFormField(
             decoration: const InputDecoration(
               border: UnderlineInputBorder(),
               filled: true,
@@ -109,7 +108,7 @@ class _CadastroUsuarioState extends State<CadastroUsuario> {
             inputFormatters: <TextInputFormatter>[
               WhitelistingTextInputFormatter.digitsOnly,
             ],
-          ), */
+          ), 
         new TextFormField(
             decoration: const InputDecoration(
               border: UnderlineInputBorder(),
@@ -124,7 +123,7 @@ class _CadastroUsuarioState extends State<CadastroUsuario> {
             onSaved: (String val) {
               this.email = val;
             }),
-        /* new TextFormField(
+        new TextFormField(
           textCapitalization: TextCapitalization.words,
           decoration: new InputDecoration(
             border: UnderlineInputBorder(),
@@ -137,46 +136,35 @@ class _CadastroUsuarioState extends State<CadastroUsuario> {
           onSaved: (String val) {
             this.bloodType = val;
           },
-        ), */
-        /* new Text('Sexo'),
-          new Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              new Radio(
-                value: 0,
-                groupValue: this._radioVal,
-                onChanged: (int value){
-                  setState(() => this._radioVal = value);
-                },
-              ),
-              new Text(
-                'Masculino'
-              ),
-              new Radio(
-                value: 1,
-                groupValue: this._radioVal,
-                onChanged: (int value){
-                  setState(() => this._radioVal = value);
-                },              ),
-              new Text(
-                'Feminino',
-              ),
-              new Radio(
-                value: 2,
-                groupValue: this._radioVal,
-                onChanged: (int value){
-                  setState(() => this._radioVal = value);
-                },
-              ),
-            ],
-          ),
+        ),
         new TextFormField(
-          decoration: new InputDecoration(hintText: 'Sexo'),
+          textCapitalization: TextCapitalization.words,
+          decoration: new InputDecoration(
+            border: UnderlineInputBorder(),
+            filled: true,
+            icon: Icon(Icons.perm_identity),
+            hintText: 'Digite seu Sexo (M ou F)',
+            labelText: 'Sexo',
+          ),
           maxLength: 1,
           onSaved: (String val) {
             this.sex = val;
           },
-        ), */
+        ),
+       new TextFormField(
+          textCapitalization: TextCapitalization.words,
+          decoration: new InputDecoration(
+            border: UnderlineInputBorder(),
+            filled: true,
+            icon: Icon(Icons.person_pin_circle),
+            hintText: 'Digite seu Estado',
+            labelText: 'Estado',
+          ),
+          maxLength: 2,
+          onSaved: (String val) {
+            this.state = val;
+          },
+        ), 
         PasswordField(
             fieldKey: _passwordFieldKey,
             helperText: 'Digite uma password',
@@ -188,15 +176,16 @@ class _CadastroUsuarioState extends State<CadastroUsuario> {
             },
           ),
          new TextFormField(
-            enabled: this.password != null && this.password.isNotEmpty,
+            enabled: password != null && password.isNotEmpty,
             decoration: const InputDecoration(
               border: UnderlineInputBorder(),
+              icon: Icon(Icons.vpn_key),
               filled: true,
               labelText: 'Digite a password novamente',
             ),
             onFieldSubmitted: (String val) {
               setState(() {
-                this.passwordConfirm = val;
+                passwordConfirm = val;
               });
             },
             maxLength: 8,
@@ -204,7 +193,7 @@ class _CadastroUsuarioState extends State<CadastroUsuario> {
           ),
         new SizedBox(height: 15.0),
         new RaisedButton(
-          child: new Text('Enviar'),
+          child: new Text('Cadastrar'),
           onPressed: _sendForm,
         )
       ],
@@ -233,7 +222,7 @@ class _CadastroUsuarioState extends State<CadastroUsuario> {
     return null;
   }
 
- /*  String _validarData(String value) {
+   String _validarData(String value) {
     String patttern = r'(^([0-2][0-9]|(3)[0-1])(\/)(((0)[0-9])|((1)[0-2]))(\/)\d{4}$)';
     RegExp regExp = new RegExp(patttern);
     if (value.length == 0) {
@@ -242,7 +231,7 @@ class _CadastroUsuarioState extends State<CadastroUsuario> {
       return "A data de nascimento deve conter apenas números";
     }
     return null;
-  } */
+  } 
 
   String _validarCelular(String value) {
     String patttern = r'(^[0-9]*$)';
@@ -290,7 +279,7 @@ class _CadastroUsuarioState extends State<CadastroUsuario> {
     print("Celular $phone");
     print("Email $email");
     print("CPF $cpf");
-    print("Data de Nascimento $data");
+    print("Data de Nascimento $bithDate");
     print("Tipo Sanguineo $bloodType");
     print("Sexo $sex");
     print("password $password");
@@ -304,8 +293,14 @@ class _CadastroUsuarioState extends State<CadastroUsuario> {
       'email': email,
       'name': name,
       'password': password,
+      'bithDate': bithDate,
       'passwordConfirm': passwordConfirm,
-      'username': name
+      'username': name,
+      'bloodType': bloodType,
+      'phone': phone,
+      'elegibleDonor': elegibleDonor,
+      'address':{ 'state': state},
+      'sex': sex
     }),);
 
   print(r.statusCode);
@@ -314,7 +309,7 @@ class _CadastroUsuarioState extends State<CadastroUsuario> {
   if (r.statusCode == 201){
     print("Login Feito com sucesso");
 
-    Navigator.of(context).pushNamed('/index');
+    Navigator.of(context).pushNamed('/');
   }else{
     print("Erro ao realizar Cadastro");
   }
