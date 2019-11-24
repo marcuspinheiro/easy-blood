@@ -89,63 +89,6 @@ if (r.statusCode == 200){
                   style: TextStyle(color: Colors.white),
                 ),
                 onPressed: getLogin, 
-                /*() async {
-                  setState(() {
-                    _isLoading = true;
-                  });
-                  //final users = await ApiService.getUserList();
-                  setState(() {
-                    _isLoading = false;
-                  });
-                  /*if (users == null) {
-                    showDialog(
-                      context: context,
-                      builder: (context) {
-                        return AlertDialog(
-                          title: Text('Error'),
-                          content: Text("Check your internet connection"),
-                          actions: <Widget>[
-                            FlatButton(
-                              child: Text('Ok'),
-                              onPressed: () {
-                                Navigator.pop(context);
-                              },
-                            )
-                          ],
-                        );
-                      }
-                    );
-                    return;
-                  } else {
-                    final userWithUsernameExists = users.any((u) => u['username'] == _usernameController.text);
-                    if (userWithUsernameExists) {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => Posts()
-                        )
-                      );
-                    } else {
-                      showDialog(
-                        context: context,
-                        builder: (context) {
-                          return AlertDialog(
-                            title: Text('Incorrect username'),
-                            content: Text('Try with a different username'),
-                            actions: <Widget>[
-                              FlatButton(
-                                child: Text('Ok'),
-                                onPressed: () {
-                                  Navigator.pop(context);
-                                },
-                              )
-                            ],
-                          );
-                        }
-                      );
-                    }
-                  }*/
-                }*/
               ),
             )
           ],
