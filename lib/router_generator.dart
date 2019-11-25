@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fluttergooglemapsapp/perguntasRespostas.dart';
 import 'package:fluttergooglemapsapp/sobreSistema.dart';
+import 'package:fluttergooglemapsapp/splashScreen.dart';
 import 'Mapas_bloodCenter.dart';
 import 'MpaBloodCenterTipoSangue.dart';
 import 'home_map.dart';
@@ -47,6 +48,8 @@ class RouteGenerator {
       return MaterialPageRoute(builder: (_) => SobreSistema());
       case '/mapTipoSangue':
       return MaterialPageRoute(builder: (_) => MapBloodCenterTipoSangue());
+      case '/splashScreen':
+        return MaterialPageRoute(builder: (_) => SplashScreen());
       default:
         return _errorRoute();
     }
