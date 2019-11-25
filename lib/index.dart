@@ -94,7 +94,6 @@ Widget build(BuildContext context) {
                 ),
               ),
             ),
-<<<<<<< HEAD
           ),
             Expanded(
               flex: 1,
@@ -157,25 +156,6 @@ Widget build(BuildContext context) {
             )
           ],
         ));
-=======
-             ListTile(
-              title: Text('Regras Doação'),
-              onTap: () {
-                // Ação para mudar para tela 2
-               Navigator.of(context).pushNamed('/regra_doacao');
-              },
-            ),
-            ListTile(
-              title: Text('Sobre'),
-              onTap: () {
-                // Ação para mudar para tela 2
-                
-              },
-            ),
-        ]),
-      ),
-    );
->>>>>>> perguntas-respostas
   }
 
 }

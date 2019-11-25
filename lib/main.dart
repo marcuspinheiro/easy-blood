@@ -13,11 +13,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primaryColor: Colors.red
       ),
-<<<<<<< HEAD
-      initialRoute: '/perguntas_respostas',//rota de de inicio '/' == Index() 
-=======
-      initialRoute: '/splashScreen',//rota de de inicio '/' == Index() 
->>>>>>> splash-screen
+      initialRoute: '/',//rota de de inicio '/' == Index() 
       onGenerateRoute: RouteGenerator.generateRoute,
     );
   }

@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:fluttergooglemapsapp/perguntasRespostas.dart';
 import 'package:fluttergooglemapsapp/sobreSistema.dart';
 import 'package:fluttergooglemapsapp/splashScreen.dart';
+import 'package:fluttergooglemapsapp/pages/home_screen.dart';
+import 'package:fluttergooglemapsapp/widgets/walkthrough.dart';
 import 'Mapas_bloodCenter.dart';
 import 'MpaBloodCenterTipoSangue.dart';
 import 'home_map.dart';
@@ -42,14 +44,28 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => MapBloodCenter());
       case '/login':
         return MaterialPageRoute(builder: (_) => LoginFront());
-      case '/index2':
-      return MaterialPageRoute(builder: (_) => Index2());
-      case '/sobreSistema':
-      return MaterialPageRoute(builder: (_) => SobreSistema());
-      case '/mapTipoSangue':
-      return MaterialPageRoute(builder: (_) => MapBloodCenterTipoSangue());
-      case '/splashScreen':
-        return MaterialPageRoute(builder: (_) => SplashScreen());
+      case '/home_page':
+        return MaterialPageRoute(builder: (_) => HomeScreen(pageRoute: null, walkthroughList: <Walkthrough>[
+          Walkthrough(
+                  title: "TESTE 1",
+                  content: "CONTENT 1",
+                  imageIcon: Icons.mobile_screen_share,
+                ),
+                Walkthrough(
+                  title: "TESTE 2",
+                  content: "CONTENT 2",
+                  imageIcon: Icons.search,
+                ),
+                Walkthrough(
+                  title: "TESTE 3",
+                  content: "CONTENT 3",
+                  imageIcon: Icons.shopping_cart,
+                ),
+                Walkthrough(
+                  title: "TESTE 4",
+                  content: "CONTENT 4",
+                  imageIcon: Icons.verified_user,
+                ),],));
       default:
         return _errorRoute();
     }
