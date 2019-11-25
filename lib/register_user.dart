@@ -307,7 +307,7 @@ class _CadastroUsuarioState extends State<CadastroUsuario> {
   print(r.body);
 
   if (r.statusCode == 201){
-    print("Login Feito com sucesso");
+    print("Cadastro Feito com sucesso");
 
     Navigator.of(context).pushNamed('/');
   }else{
