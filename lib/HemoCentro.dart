@@ -1,3 +1,5 @@
+import 'dart:collection';
+
 class  HemoCentro {
 
 String name;
@@ -6,7 +8,9 @@ String urlImage;
 String city;
 double lat;
 double long;
-var blood;
+
+Map<String, double> blood = Map();
+
 
 
 
@@ -19,17 +23,29 @@ HemoCentro(String name, String urlImage, double lat, double long, String street,
   this.street = street;
   this.city = city;
 
+  startMap();
 
 }
 
 
-void setNull(){
 
-  this.name = null;
-
-
+ void startMap(){
+  blood["O+"] = 0.0;
+  blood["O-"] = 0.0;
+  blood["AB-"] = 0.0;
+  blood["AB+"] = 0.0;
+  blood["A-"] = 0.0;
+  blood["A+"] = 0.0;
+  blood["B+"] = 0.0;
+  blood["B-"] = 0.0;
 }
 
+
+void updateMap(String type, double value){
+
+  blood[type] = value;
+
+}
 
 
 

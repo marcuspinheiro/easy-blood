@@ -1,3 +1,4 @@
+
 class User{
 
   String name;
@@ -8,7 +9,7 @@ class User{
   String phone;
   bool elegibleDonor;
   String city;
-  
+
 
 
 

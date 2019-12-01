@@ -36,11 +36,16 @@ Future<List<HemoCentro>> _getBloddCenter() async {
     
     var jsonData = json.decode(data.body);
 
+    var typeBlood;
+    var valueLiterBlood;
+
     print(data.body);
 
     List<HemoCentro> hemoCentros = [];
 
     for (var i in jsonData){
+
+
 
       var adress = i['address'];
 
@@ -50,19 +55,35 @@ Future<List<HemoCentro>> _getBloddCenter() async {
       String city = adress["city"];
       print(lat);
       print(long);
+      double liter;
+      String typeblood;
 
       HemoCentro hemoCentro = HemoCentro(i["name"], i["imageURL"], lat, long, street, city);
 
+  if (i['bloodList'] != null){
+    
+     for (var j in i['bloodList']){
+
+       liter = j['liters'];
+       typeblood = j['type'];
+       hemoCentro.updateMap(typeblood, liter);
+
+        print(typeblood + ':' + liter.toString());
+
+      }
       
+  }
         hemoCentros.add(hemoCentro);
+
       
 
       
-      
+      print("=========================================================================================================");
       print(hemoCentro.name);
       print(hemoCentro.urlImage);
       print(hemoCentro.street);
       print(hemoCentro.city);
+
     }
     print ("Quantidade de Hemocentros");
     print(hemoCentros.length);
@@ -93,12 +114,15 @@ Future<List<HemoCentro>> _getBloddCenter() async {
                        centros : snapshot.data,
                        initialPosition : const LatLng(-22.8269535, -47.0663047),
                        mapController: _mapController,
+                       bloodTypeUser: user.bloodType
+
                      ),
                    
                    
                      CenterList (
                          centro: snapshot.data,
-                         mapController: _mapController 
+                         mapController: _mapController,
+                         bloodTypeUser: user.bloodType
                        )
                   
                      ,]  
@@ -112,14 +136,17 @@ Future<List<HemoCentro>> _getBloddCenter() async {
 
 
 class CenterList extends StatelessWidget{
+
   const CenterList ({
   Key key,
     @required this.centro,
     @required this.mapController,
+    @required this.bloodTypeUser,
   }) :super (key : key);
 
   final List <HemoCentro> centro;
   final Completer<GoogleMapController> mapController;
+  final String bloodTypeUser;
   
   
     Widget build(BuildContext context) {
@@ -141,7 +168,7 @@ class CenterList extends StatelessWidget{
                     child: Center(
                       child: ListTile(
                         title: Text(centro[index].name),
-                        subtitle: Text(centro[index].street  + ',' + centro[index].city), //localização do centro coletor
+                        subtitle: Text("Litros de " +  bloodTypeUser + ": " + centro[index].blood[bloodTypeUser].toString()), //Quantidade de Sangue do tipo do usuário
                         leading: Container(
                           child: ClipRRect(
                             child: Image.network(centro[index].urlImage, fit: BoxFit.cover,),
@@ -183,11 +210,13 @@ const CenterMap({
   @required this.centros,
   @required this.initialPosition,
   @required this.mapController,
+  @required this.bloodTypeUser,
 }) : super(key:key);
 
 final List<HemoCentro> centros;
 final LatLng initialPosition;
 final Completer<GoogleMapController> mapController;
+final String bloodTypeUser;
 
 Widget build (BuildContext context){
   return GoogleMap(
@@ -205,7 +234,7 @@ Widget build (BuildContext context){
         ),
         infoWindow: InfoWindow(
           title: centro.name, // titulo do marcador
-          snippet: centro.street, //Subtitulo do marcador 
+          snippet: "Litros de " +  bloodTypeUser + ": " + centro.blood[bloodTypeUser].toString(), //Subtitulo do marcador 
         ),
       ))
       .toSet(),
