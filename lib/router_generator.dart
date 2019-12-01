@@ -42,6 +42,8 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => Perguntas());
       case '/mapblood':
         return MaterialPageRoute(builder: (_) => MapBloodCenter());
+      case '/splashscreen':
+        return MaterialPageRoute(builder: (_) => SplashScreen ());
       case '/login':
         return MaterialPageRoute(builder: (_) => LoginFront());
       case '/mapbloodlocation':

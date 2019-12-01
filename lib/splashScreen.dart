@@ -12,7 +12,7 @@ class _SplashScreenState extends State<SplashScreen> {
 @override
   void initState() {
     super.initState();
-    Timer(Duration(seconds: 5),()=> print("splash done!"));
+    Timer(Duration(seconds: 6),()=> Navigator.of(context).pushNamed('/'));
   }
 
   @override
@@ -36,11 +36,7 @@ class _SplashScreenState extends State<SplashScreen> {
                       CircleAvatar(
                         backgroundColor: Colors.white,
                         radius: 50.0,
-                        child: Icon(
-                          Icons.shopping_cart,
-                          color: Colors.greenAccent,
-                          size: 50.0,
-                        ),
+                        child: Image.asset('assets/EasyBlood2.fw.png'),
                       ),
                       Padding(
                         padding: EdgeInsets.only(top: 10.0),
@@ -61,7 +57,7 @@ class _SplashScreenState extends State<SplashScreen> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    CircularProgressIndicator(),
+                    CircularProgressIndicator(backgroundColor: Colors.red, valueColor: new AlwaysStoppedAnimation (Colors.white)),
                     Padding(
                       padding: EdgeInsets.only(top: 20.0),
                     ),
