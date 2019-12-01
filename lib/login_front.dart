@@ -37,17 +37,20 @@ if (r.statusCode == 200){
   print("Login Feito com sucesso");
 
   var jsonData = json.decode(r.body);
-  var jsonEndereco = jsonData['address'];
-  var state = jsonEndereco['state'];
+  var adress = jsonData['address'];
 
-  print(jsonEndereco);
+  //double lat = adress['latitude'];
+  //double long = adress['longitude'];
+  //String street = adress["street"];
+  String city = adress["city"];
+
 
 
   User user = User(jsonData['name'], jsonData['email'], jsonData['bloodType'], jsonData['cpf'], jsonData['sex'], 
-  jsonData['phone'], jsonData['elegibleDonor']);
+  jsonData['phone'], jsonData['elegibleDonor'], city);
 
   print('Nome do usuário: '+user.name);
-  print(state);
+  print('Cidade: ' + city);
 
   Navigator.of(context).pushNamed('/index_login', arguments: user);
 }else{

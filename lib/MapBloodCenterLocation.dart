@@ -11,24 +11,25 @@ import 'dart:async';
 import 'HemoCentro.dart';
 import 'class_user.dart';
 
-class MapBloodCenterTipoSangue extends StatefulWidget {
-
+class MapBloodCenterLocation extends StatefulWidget {
 
   final User user;
-  const MapBloodCenterTipoSangue({Key key, this.user}) : super(key: key);
-  
+
+  const MapBloodCenterLocation({Key key, this.user}) : super(key: key);
+
   @override
-  _MapBloodCenterTipoSangueState createState() => _MapBloodCenterTipoSangueState(user);
+  _MapBloodCenterLocationState createState() => _MapBloodCenterLocationState(user);
 }
 
-class _MapBloodCenterTipoSangueState extends State<MapBloodCenterTipoSangue> {
+class _MapBloodCenterLocationState extends State<MapBloodCenterLocation> {
 
-  final User user;
+    final User user;
 
-  _MapBloodCenterTipoSangueState(this.user);
+  _MapBloodCenterLocationState(this.user);
 
 
 final Completer<GoogleMapController> _mapController = Completer();
+
 
 Future<List<HemoCentro>> _getBloddCenter() async {
 
@@ -53,9 +54,9 @@ Future<List<HemoCentro>> _getBloddCenter() async {
 
       HemoCentro hemoCentro = HemoCentro(i["name"], i["imageURL"], lat, long, street, city);
 
-      
+      if (user.city == city){
         hemoCentros.add(hemoCentro);
-      
+      }
 
       
       
@@ -74,7 +75,7 @@ Future<List<HemoCentro>> _getBloddCenter() async {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: new Text("Tipo de Sangue: " + user.bloodType,)//tipo de sangue da busca
+        title: new Text("Centro Coletores em: " + user.city), // cidade de busca de centro coletor
       ),
             body: FutureBuilder(
               future: _getBloddCenter(),
@@ -141,7 +142,7 @@ class CenterList extends StatelessWidget{
                     child: Center(
                       child: ListTile(
                         title: Text(centro[index].name),
-                        subtitle: Text(centro[index].street  + ',' + centro[index].city), //localização do centro coletor
+                        subtitle: Text(centro[index].street  + ', ' + centro[index].city), //localização do centro coletor
                         leading: Container(
                           child: ClipRRect(
                             child: Image.network(centro[index].urlImage, fit: BoxFit.cover,),

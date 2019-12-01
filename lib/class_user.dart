@@ -7,11 +7,12 @@ class User{
   String sex;
   String phone;
   bool elegibleDonor;
-  String adress;
+  String city;
+  
 
 
 
-User (String name, String email, String bloodType, String cpf, String sex, String phone, bool elegibleDonor){
+User (String name, String email, String bloodType, String cpf, String sex, String phone, bool elegibleDonor, String city){
 
   this.name = name;
   this.email = email;
@@ -20,6 +21,7 @@ User (String name, String email, String bloodType, String cpf, String sex, Strin
   this.sex = sex;
   this.phone = phone;
   this.elegibleDonor = elegibleDonor;
+  this.city = city;
 
 }
 

@@ -183,16 +183,3 @@ Widget build(BuildContext context) {
       ],
     );
   }
-
-/*
- Text(
-                                    'Login',
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 42.0),
-
-                                  ),
-
-
- */

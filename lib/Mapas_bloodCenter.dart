@@ -32,20 +32,23 @@ Future<List<HemoCentro>> _getBloddCenter() async {
 
     for (var i in jsonData){
 
-      var latLong = i['address'];
+      var adress = i['address'];
 
-      double lat = latLong['latitude'];
-      double long = latLong['longitude'];
-
+      double lat = adress['latitude'];
+      double long = adress['longitude'];
+      String street = adress["street"];
+      String city = adress["city"];
       print(lat);
       print(long);
 
-      HemoCentro hemoCentro = HemoCentro(i["name"], i["imageURL"], lat, long);
+      HemoCentro hemoCentro = HemoCentro(i["name"], i["imageURL"], lat, long, street, city);
 
       hemoCentros.add(hemoCentro);
       
       print(hemoCentro.name);
       print(hemoCentro.urlImage);
+      print(hemoCentro.street);
+      print(hemoCentro.city);
     }
     print ("Quantidade de Hemocentros");
     print(hemoCentros.length);
@@ -124,7 +127,7 @@ class CenterList extends StatelessWidget{
                     child: Center(
                       child: ListTile(
                         title: Text(centro[index].name),
-                        subtitle: Text(centro[index].name),
+                        subtitle: Text(centro[index].street  + ', ' + centro[index].city), //localização do centro coletor
                         leading: Container(
                           child: ClipRRect(
                             child: Image.network(centro[index].urlImage, fit: BoxFit.cover,),
@@ -187,8 +190,8 @@ Widget build (BuildContext context){
           centro.lat, centro.long
         ),
         infoWindow: InfoWindow(
-          title: centro.name,
-          snippet: 'teste',
+          title: centro.name, // titulo do marcador
+          snippet: centro.street, //Subtitulo do marcador 
         ),
       ))
       .toSet(),
