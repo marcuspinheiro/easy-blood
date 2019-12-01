@@ -64,13 +64,13 @@ class IndexLoginState extends State<IndexLogin> {
                   title: itemRow(Icons.location_on, 'Mapa por Localidade', '',Colors.white),  
                   onTap: () {
                       // Ação para mudar para tela 2
-                    Navigator.of(context).pushNamed('/mapblood');
+                    Navigator.of(context).pushNamed('/mapbloodlocation', arguments: user);
                     },),
                  ListTile (
                   title: itemRow(Icons.invert_colors, 'Mapa por tipo de Sangue', '',Colors.white),  
                   onTap: () {
                       // Ação para mudar para tela 2
-                    Navigator.of(context).pushNamed('/mapblood');
+                    Navigator.of(context).pushNamed('/mapbloodtype', arguments: user);
                     },),//marcus
                 ListTile (
                   title: itemRow(Icons.help, 'Dúvidas e Respostas', '', Colors.white),  
@@ -106,14 +106,8 @@ class IndexLoginState extends State<IndexLogin> {
     );
   }
 
-
-
-
-
 }
 
-
- 
 
   itemRow(icon, name, title, textColor) {
     return Row(
