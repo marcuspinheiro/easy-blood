@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'flutter_masked_text.dart';
 import 'user.dart';
 
 class CadastroUsuario extends StatefulWidget {
@@ -16,7 +17,10 @@ class _CadastroUsuarioState extends State<CadastroUsuario> {
 
   GlobalKey<FormState> _key = new GlobalKey();
   bool _validate = false, elegibleDonor = true;
-  String name, email, phone, cpf, bloodType, sex, password, passwordConfirm, bithDate, state;  
+  String name, email, phone, cpf, bloodType, sex, password, passwordConfirm, bithDate, state, city;  
+  var controllerCPF = new MaskedTextController(mask: '000.000.000-00');
+  var controllerData = new MaskedTextController(mask: '00/00/0000');
+  var controllerPhone = new MaskedTextController(mask: '(00) 00000-0000');
 
   @override
   Widget build(BuildContext context) {
@@ -42,20 +46,22 @@ class _CadastroUsuarioState extends State<CadastroUsuario> {
       children: <Widget>[
         new TextFormField(
           textCapitalization: TextCapitalization.words,
+          validator: _validarname,
           decoration: new InputDecoration(
             border: UnderlineInputBorder(),
             filled: true,
             icon: Icon(Icons.person),
-            hintText: 'Digite seu name',
-            labelText: 'name Completo',
+            hintText: 'Digite seu Nome',
+            labelText: 'Nome Completo',
           ),
           maxLength: 40,
           onSaved: (String val) {
             this.name = val;
           },
-          validator: _validarname,
         ),
         new TextFormField(
+          keyboardType: TextInputType.number,
+          controller: controllerCPF,
           decoration: const InputDecoration(
               border: UnderlineInputBorder(),
               filled: true,
@@ -73,16 +79,18 @@ class _CadastroUsuarioState extends State<CadastroUsuario> {
             ],
         ),
         new TextFormField(
+          controller: controllerData,
             decoration: const InputDecoration(
               border: UnderlineInputBorder(),
               filled: true,
               icon: Icon(Icons.date_range),
-              hintText: 'Digite data de nascimento',
+              hintText: 'Digite sua data de nascimento',
               labelText: 'Data',
             ),
             keyboardType: TextInputType.datetime,
             maxLength: 10,
             onSaved: (String val) {
+              val.replaceAll('/', '');
               bithDate = val;
             },
             inputFormatters: <TextInputFormatter>[
@@ -91,6 +99,7 @@ class _CadastroUsuarioState extends State<CadastroUsuario> {
             validator: _validarData,
             ),
         new TextFormField(
+            controller: controllerPhone,
             decoration: const InputDecoration(
               border: UnderlineInputBorder(),
               filled: true,
@@ -100,7 +109,7 @@ class _CadastroUsuarioState extends State<CadastroUsuario> {
               prefixText: '+55',
             ),
             keyboardType: TextInputType.phone,
-            maxLength: 10,
+            maxLength: 15,
             validator: _validarCelular,
             onSaved: (String val) {
               this.phone = val;
@@ -163,6 +172,20 @@ class _CadastroUsuarioState extends State<CadastroUsuario> {
           maxLength: 2,
           onSaved: (String val) {
             this.state = val;
+          },
+        ),
+      new TextFormField(
+          textCapitalization: TextCapitalization.words,
+          decoration: new InputDecoration(
+            border: UnderlineInputBorder(),
+            filled: true,
+            icon: Icon(Icons.location_city),
+            hintText: 'Digite sua Cidade',
+            labelText: 'Cidade',
+          ),
+          maxLength: 40,
+          onSaved: (String val) {
+            this.city = val;
           },
         ), 
         PasswordField(
@@ -238,24 +261,10 @@ class _CadastroUsuarioState extends State<CadastroUsuario> {
     RegExp regExp = new RegExp(patttern);
     if (value.length == 0) {
       return "Informe o celular";
-    } else if(value.length != 10){
+    } else if(value.length != 15){
       return "O celular deve ter 10 dígitos";
     }else if (!regExp.hasMatch(value)) {
       return "O número do celular so deve conter dígitos";
-    }
-    return null;
-  }
-
-  String _validarpassword(String value) {
-    if(value.length != 10){
-      return "A password deve no mínimo 6 dígitos";
-    }
-    return null;
-  }
-
-    String _validarpasswordConfirm(String value) {
-    if(value != password){
-      return "A password ser igual a password anterior";
     }
     return null;
   }

@@ -38,6 +38,8 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => HomeMaps());
       case '/regra_doacao':
         return MaterialPageRoute(builder: (_) => RegraDoacao());
+      case '/sobreSistema':
+        return MaterialPageRoute(builder: (_) => SobreSistema());
       case '/perguntas_respostas':
         return MaterialPageRoute(builder: (_) => Perguntas());
       case '/mapblood':
