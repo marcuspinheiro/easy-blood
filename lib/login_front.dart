@@ -55,8 +55,32 @@ if (r.statusCode == 200){
   Navigator.of(context).pushNamed('/index_login', arguments: user);
 }else{
   print("Login INVALIDO");
+  _showError();
 }
 
+  }
+
+  void _showError() {
+    // flutter defined function
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        // return object of type Dialog
+        return AlertDialog(
+          title: new Text("Erro"),
+          content: new Text("Login Inválido!"),
+          actions: <Widget>[
+            // usually buttons at the bottom of the dialog
+            new FlatButton(
+              child: new Text("Voltar"),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 
   @override

@@ -302,13 +302,13 @@ class _CadastroUsuarioState extends State<CadastroUsuario> {
       'email': email,
       'name': name,
       'password': password,
-      'bithDate': bithDate,
+      'bithDate': bithDate.replaceAll('/', ''), 
       'passwordConfirm': passwordConfirm,
       'username': name,
       'bloodType': bloodType,
       'phone': phone,
       'elegibleDonor': elegibleDonor,
-      'address':{ 'state': state},
+      'address':{ 'state': state,'city': city },
       'sex': sex
     }),);
 
@@ -320,7 +320,25 @@ class _CadastroUsuarioState extends State<CadastroUsuario> {
 
     Navigator.of(context).pushNamed('/');
   }else{
-    print("Erro ao realizar Cadastro");
+    print("Erro ao realizar cadastro");
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+     return AlertDialog(
+          title: new Text("Erro"),
+          content: new Text("Erro ao realizar Cadastro!"),
+          actions: <Widget>[
+            // usually buttons at the bottom of the dialog
+            new FlatButton(
+              child: new Text("Voltar"),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 
   }
