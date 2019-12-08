@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:fluttergooglemapsapp/perguntasRespostas.dart';
+import 'package:fluttergooglemapsapp/perguntas_respostas.dart';
 import 'package:fluttergooglemapsapp/sobreSistema.dart';
 import 'package:fluttergooglemapsapp/splashScreen.dart';
 import 'package:fluttergooglemapsapp/pages/home_screen.dart';
@@ -54,18 +54,19 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => MapBloodCenterTipoSangue(user: args,));
       case '/home_page':
         return MaterialPageRoute(builder: (_) => HomeScreen(pageRoute: null, walkthroughList: <Walkthrough>[
-          Walkthrough(
-                  title: "TESTE 1",
-                  content: "CONTENT 1",
-                  imageIcon: Icons.mobile_screen_share,
+              Walkthrough(
+                  title: ListTile(title: Text('Login'),),
+                  content: "Clique aqui para login",
+                  imageIcon: Icons.supervised_user_circle,
                 ),
                 Walkthrough(
-                  title: "TESTE 2",
+                  title: "Mapa de Centro Coletores",
                   content: "CONTENT 2",
-                  imageIcon: Icons.search,
+                  imageIcon: Icons.map,
+                  
                 ),
                 Walkthrough(
-                  title: "TESTE 3",
+                  title: "Sobre o App",
                   content: "CONTENT 3",
                   imageIcon: Icons.shopping_cart,
                 ),

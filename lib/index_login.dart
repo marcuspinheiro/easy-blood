@@ -76,7 +76,7 @@ class IndexLoginState extends State<IndexLogin> {
                   title: itemRow(Icons.help, 'Dúvidas e Respostas', '', Colors.white),  
                   onTap: () {
                         // Ação para mudar para tela 2
-                      Navigator.of(context).pushNamed('/regra_doacao');
+                      Navigator.of(context).pushNamed('/perguntas_respostas');
                         },),
                 ListTile (
                   title:itemRow(Icons.info, 'Sobre','', Colors.white),
