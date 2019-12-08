@@ -36,8 +36,7 @@ Future<List<HemoCentro>> _getBloddCenter() async {
     
     var jsonData = json.decode(data.body);
 
-    var typeBlood;
-    var valueLiterBlood;
+    
 
     print(data.body);
 

@@ -8,10 +8,15 @@ String urlImage;
 String city;
 double lat;
 double long;
+String rule;
 
 Map<String, double> blood = Map();
 
+void updtaeHemoCentro(String rule){
 
+  this.rule = rule;
+
+}
 
 
 HemoCentro(String name, String urlImage, double lat, double long, String street, String city){

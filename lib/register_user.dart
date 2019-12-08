@@ -51,8 +51,8 @@ class _CadastroUsuarioState extends State<CadastroUsuario> {
             border: UnderlineInputBorder(),
             filled: true,
             icon: Icon(Icons.person),
-            hintText: 'Digite seu Nome',
-            labelText: 'Nome Completo',
+            hintText: 'Digite seu Nome de Usuário',
+            labelText: 'Nome de usuário',
           ),
           maxLength: 40,
           onSaved: (String val) {
@@ -166,8 +166,8 @@ class _CadastroUsuarioState extends State<CadastroUsuario> {
             border: UnderlineInputBorder(),
             filled: true,
             icon: Icon(Icons.person_pin_circle),
-            hintText: 'Digite seu Estado',
-            labelText: 'Estado',
+            hintText: 'Digite a UF',
+            labelText: 'UF',
           ),
           maxLength: 2,
           onSaved: (String val) {
@@ -312,7 +312,7 @@ class _CadastroUsuarioState extends State<CadastroUsuario> {
       'sex': sex
     }),);
 
-  print(r.statusCode);
+  print('Código retornado da requisição: ' +r.statusCode.toString());
   print(r.body);
 
   if (r.statusCode == 201){
