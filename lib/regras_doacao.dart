@@ -43,7 +43,7 @@ class _RegraDoacaoState extends State<RegraDoacao> {
         
         print("regras de doação: " + hemoCentro.rule);
         hemoCentros.add(hemoCentro);
-        print("INSEIRU");
+        print("INSERIU NA LISTA");
       
       }
       
