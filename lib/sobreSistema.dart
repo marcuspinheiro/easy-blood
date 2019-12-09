@@ -56,10 +56,10 @@ class SobreSistemaState extends State<SobreSistema> {
                   title: itemRow(Icons.help, 'Dúvidas e Respostas', '', Colors.white),  
                   onTap: () {
                         // Ação para mudar para tela 2
-                      Navigator.of(context).pushNamed('/regra_doacao');
+                      Navigator.of(context).pushNamed('/perguntas_respostas');
                         },),
                 ListTile (
-                  title:itemRow(Icons.info, 'Sobre','', Colors.white),
+                  title:itemRow(Icons.info, 'Pré-requisitos dação','', Colors.white),
                   onTap: () {
                             // Ação para mudar para tela 2
                           Navigator.of(context).pushNamed('/regra_doacao');

@@ -36,8 +36,7 @@ Future<List<HemoCentro>> _getBloddCenter() async {
     
     var jsonData = json.decode(data.body);
 
-    var typeBlood;
-    var valueLiterBlood;
+    
 
     print(data.body);
 
@@ -112,7 +111,7 @@ Future<List<HemoCentro>> _getBloddCenter() async {
                  children: <Widget> [ 
                     CenterMap(
                        centros : snapshot.data,
-                       initialPosition : const LatLng(-22.8269535, -47.0663047),
+                       initialPosition : const LatLng(-22.8340737, -47.0548373),
                        mapController: _mapController,
                        bloodTypeUser: user.bloodType
 
