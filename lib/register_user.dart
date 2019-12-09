@@ -17,7 +17,7 @@ class _CadastroUsuarioState extends State<CadastroUsuario> {
 
   GlobalKey<FormState> _key = new GlobalKey();
   bool _validate = false, elegibleDonor = true;
-  String name, email, phone, cpf, bloodType, sex, password, passwordConfirm, bithDate, state, city;  
+  String name, email, phone, cpf, bloodType, sex, password, passwordConfirm, birthDate, state, city;  
   var controllerCPF = new MaskedTextController(mask: '000.000.000-00');
   var controllerData = new MaskedTextController(mask: '00/00/0000');
   var controllerPhone = new MaskedTextController(mask: '(00) 00000-0000');
@@ -51,8 +51,8 @@ class _CadastroUsuarioState extends State<CadastroUsuario> {
             border: UnderlineInputBorder(),
             filled: true,
             icon: Icon(Icons.person),
-            hintText: 'Digite seu Nome',
-            labelText: 'Nome Completo',
+            hintText: 'Digite seu Nome de Usuário',
+            labelText: 'Nome de usuário',
           ),
           maxLength: 40,
           onSaved: (String val) {
@@ -72,6 +72,7 @@ class _CadastroUsuarioState extends State<CadastroUsuario> {
           maxLength: 14,
           validator: _validarCPF,
           onSaved: (String val) {
+            val.replaceAll('.', '').replaceAll('-', '');
             cpf = val;
           },
           inputFormatters: <TextInputFormatter>[
@@ -91,7 +92,7 @@ class _CadastroUsuarioState extends State<CadastroUsuario> {
             maxLength: 10,
             onSaved: (String val) {
               val.replaceAll('/', '');
-              bithDate = val;
+              birthDate = val;
             },
             inputFormatters: <TextInputFormatter>[
               WhitelistingTextInputFormatter.digitsOnly,
@@ -166,8 +167,8 @@ class _CadastroUsuarioState extends State<CadastroUsuario> {
             border: UnderlineInputBorder(),
             filled: true,
             icon: Icon(Icons.person_pin_circle),
-            hintText: 'Digite seu Estado',
-            labelText: 'Estado',
+            hintText: 'Digite a UF',
+            labelText: 'UF',
           ),
           maxLength: 2,
           onSaved: (String val) {
@@ -288,7 +289,7 @@ class _CadastroUsuarioState extends State<CadastroUsuario> {
     print("Celular $phone");
     print("Email $email");
     print("CPF $cpf");
-    print("Data de Nascimento $bithDate");
+    print("Data de Nascimento $birthDate");
     print("Tipo Sanguineo $bloodType");
     print("Sexo $sex");
     print("password $password");
@@ -298,11 +299,11 @@ class _CadastroUsuarioState extends State<CadastroUsuario> {
 
   const url = 'https://easybloodteste.herokuapp.com/public/users';
   http.Response r = await http.post(url, headers: {"Content-Type": "application/json"}, body: json.encode({
-      'cpf': cpf,
+      'cpf': cpf.replaceAll('.', '').replaceAll('-', ''),
       'email': email,
       'name': name,
       'password': password,
-      'bithDate': bithDate.replaceAll('/', ''), 
+      'birthDate': birthDate.replaceAll('/', ''), 
       'passwordConfirm': passwordConfirm,
       'username': name,
       'bloodType': bloodType,
@@ -312,7 +313,7 @@ class _CadastroUsuarioState extends State<CadastroUsuario> {
       'sex': sex
     }),);
 
-  print(r.statusCode);
+  print('Código retornado da requisição: ' +r.statusCode.toString());
   print(r.body);
 
   if (r.statusCode == 201){
